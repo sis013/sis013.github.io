@@ -1,6 +1,5 @@
 ---
 title: "자료구조 요약정리"
-date: 2022-02-15T19:45:16+09:00
 categories:
 - 기타
 tags:
@@ -9,8 +8,6 @@ tags:
 - data structure
 keywords:
 - data structure
-#thumbnailImage: //example.com/image.jpg
-draft: true
 ---
 # OWL: Cooperative Thread Array Aware Scheduling Techniques for Improving GPGPU Performance (ASPLOS'13, Adwait Jog)
 <!--more-->
