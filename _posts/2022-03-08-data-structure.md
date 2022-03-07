@@ -2,10 +2,6 @@
 title: "자료구조 요약정리"
 categories:
 - 기타
-tags:
-- 시험준비
-- 자료구조
-- data structure
 keywords:
 - data structure
 ---
