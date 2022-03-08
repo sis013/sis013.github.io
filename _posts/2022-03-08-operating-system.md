@@ -1,5 +1,5 @@
 ---
-title: "운영체제 문제은행"
+title: "운영체제 종합정리"
 categories:
 - os
 tags:
@@ -11,11 +11,13 @@ keywords:
 <!--more-->
 
 1. 다음 그림은 CPU와 I/O device 간 timeline을 보여주고 있다. 그림을 통해 에측할 수 있는 작업 상황에 대해 설명하고, 시간 $t_1, t_2, t_3$ 에서 CPU와 I/O device 사이에 발생하는 이벤트 작업에 대해 매 시간대별로 설명하시오. (I/O system)
-A: CPU는 interrupt-request line을 가지고 있으며, 현 timeline을 통해 CPU가 I/O device로부터 data를 읽어오는 작업의 일부를 보여준다. 
-t1에서 I/O device의 controller는 input ready interrupt signal을 발생시킨다. 
-t2에서 CPU는 I/O device로부터 interrupt signal 을 받고, interrupt handler로 control을 넘긴다. 
-t2~t3동안 interrupt handler는 interrupt로부터 반환된 데이터를 처리한다. 
-t3에서 control을 회복한 CPU는 interrupt로 인해 중단된 작업을 계속 진행한다.  
+
+A: CPU는 interrupt-request line을 가지고 있으며, 현 timeline을 통해 CPU가 I/O device로부터 data를 읽어오는 작업의 일부를 보여준다.
+
+- t1에서 I/O device의 controller는 input ready interrupt signal을 발생시킨다. 
+- t2에서 CPU는 I/O device로부터 interrupt signal 을 받고, interrupt handler로 control을 넘긴다. 
+- t2~t3동안 interrupt handler는 interrupt로부터 반환된 데이터를 처리한다. 
+- t3에서 control을 회복한 CPU는 interrupt로 인해 중단된 작업을 계속 진행한다.  
 
 PCIe bus는 1개 이상의 "lane"으로 구성되어 있다. Lane은 두 개의 시그널링 페어(하나는 receiving data, 다른 하나는 transmitting)로 이루어져 있어서 총 4개의 wire로 구성된다. PCIe x8 이라면 8개의 lane으로 구성된 PCIe bus라는 것이다. 
 
