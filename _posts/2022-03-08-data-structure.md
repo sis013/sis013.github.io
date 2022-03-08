@@ -5,10 +5,9 @@ categories:
 keywords:
 - data structure
 ---
-
+**문제를 통해 배우는 자료구조**
 <!--more-->
 
-**문제를 통해 배우는 자료구조**
 
 1. Provide a formal definition of "Graph" data structure, and describe its differences to "Tree" data strucutre.
 A: 
