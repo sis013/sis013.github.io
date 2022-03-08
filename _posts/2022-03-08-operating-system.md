@@ -1,5 +1,5 @@
 ---
-title: "운영체제 종합정리"
+title: "Operating System Fundamental"
 categories:
 - os
 tags:
@@ -35,6 +35,7 @@ MMIO에서는 4개의 register(data-in, data-out, status, control)로 구성되�
 Interrupt와 Polling
 
 2. 마이크로커널(microkernel) 구조와 모놀리틱커널(monolithic kernel) 구조의 차이점에 대해서 커널 서브시스템(kernel subsystem)의 프로그램 실행 레벨과 보호영역(protection domain) 관점에서 서술하시오. (operating system structure, kernel subsystem, protection)
+
 A: 
 
 3. DMA(direct memory access)를 사용하여 CPU의 실행 부하(execution load)없이 고속 입출력 장치들을 사용하고자 한다. 이때 장치로의 메모리 연산이 완료되었음을 CPU가 알 수 있는 방법이 무엇이며, 그 방법과 트랩(trap)과의 차이에 대해서 서술하시오. (I/O hardware, DMA)

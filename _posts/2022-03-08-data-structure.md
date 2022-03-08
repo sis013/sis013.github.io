@@ -1,5 +1,5 @@
 ---
-title: "자료구조 요약정리"
+title: "Data Structure Fundamental"
 categories:
 - 기타
 keywords:

@@ -16,9 +16,9 @@ minimal_mistakes_skin    : "air" # "default", "air", "aqua", "contrast", "dark",
 
 # Site Settings
 locale                   : "en-US"
-title                    : "There is no end to learning, but I wish it would be over"
+title                    : Rather Grateful
 title_separator          : "-"
-subtitle                 : # site tagline that appears below site title in masthead
+subtitle                 : There is no end to learning, so enjoy
 name                     : "Inje Kim"
 description              : "I'm very interested in GNN, GPU, and NPU."
 url                      : "https://sis013.github.io"
