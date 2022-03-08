@@ -7,7 +7,7 @@ tags:
 keywords:
 - os
 ---
-# Operating System Test
+**문제를 통해 배우는 운영체제**
 <!--more-->
 
 1. 다음 그림은 CPU와 I/O device 간 timeline을 보여주고 있다. 그림을 통해 에측할 수 있는 작업 상황에 대해 설명하고, 시간 $t_1, t_2, t_3$ 에서 CPU와 I/O device 사이에 발생하는 이벤트 작업에 대해 매 시간대별로 설명하시오. (I/O system)
@@ -101,3 +101,50 @@ do{
 } while (true);
 ```
 
+16. 페이징 기법을 이용하는 가상 메모리 구조에서는 메모리에 해당 페이지가 없을 때,
+페이지 교체를 통해 원하는 페이지를 메모리에 적재한 후 사용한다. 그러나 이런 페
+이지 교체가 자주 발생하게 되면, 프로세스의 처리 시간보다 메모리의 페이지 교체
+시간이 더 길어지는 쓰레싱(thrashing) 문제가 발생할 수 있다. 이와 같은 문제의 원
+인과 해결 방안을 설명하시오.
+
+17. 4 GB 가상메모리(virtual memory)를 갖는 시스템에서 페이지 크기(page size)가 1
+MB 라고 할 때, 다음 물음에 답하시오.
+(1) 페이지 테이블에 저장할 수 있는 엔트리의 수를 구하시오.
+(2) 같은 프로세스를 처리하는 시스템 환경에서 페이지 크기(page size)가 4KB로 변
+경된다고 할 때, I/O time과 Internal fragmentation 측면에서 예측할 수 있는 오
+버헤드(overhead) 또는 장점에 대해 설명하시오.
+
+18. 4개의 frames을 사용하는 메모리 시스템(memory system)에서 프로세스 수행을 위
+한 reference string이 다음과 같을 때, 다음 3가지 Page-replacement algorithms을
+사용하여 교체되는 과정을 그림에 표현하고 발생한 페이지 부재(page faults) 수를
+구하시오. (단, 교체 대상 페이지가 2개 이상인 경우에는 FIFO 기법을 적용함.)
+(1) LRU replacement
+(2) FIFO replacement
+(3) Optimal replacement
+
+19. 5개의 프로세스들 P0, P1, P2, P3, P4에 할당된 자원의 수(Allocation), 작업 완료시까
+지 필요한 최대 자원의 수(Max), 그리고 현재 가용한 자원의 수(Available)가 다음과
+같다고 하자. Deadlock handling methods 중 하나인 Banker’s Algorithm을 사용하
+여 시스템이 안정 상태(safe state)인지 여부를 판단하시오.
+Allocation Max Available
+A B C D A B C D A B C D
+P0 0 0 1 2 0 0 1 2 1 5 2 0
+P1 1 0 0 0 1 7 5 0
+P2 1 3 5 4 2 3 5 6
+P3 0 6 3 2 0 6 5 2
+P4 0 0 1 4 0 6 5 6
+안정 상태이면 처리 순서(safe sequence)
+를 구하고, 안정 상태가 아니라면 그 이
+유를 설명하시오. (단, safe sequence를
+구할 수 있다면, 매 단계를 자세히 서술.)
+
+20. 유닉스 I-node가 10개의 직접 접근 블록과 각 1개씩의 1차(single), 2차(double) 간
+접 접근 블록(indirect block)까지 활용한다고 할 때, 한 파일이 표현할 수 있는 최대
+용량을 계산하시오. 단, 하나의 디스크 블록은 1KB 이며, 하나의 디스크 블록 주소는
+4 Bytes이다. (계산기 불필요 최종 결과는 수식으로 표현 가능)
+
+21. 버퍼 캐시를 LRU 정책과 FIFO 정책 두 가지 방식을 사용한다고 할 때, 아래 액세
+스 패턴에 대해 총 액세스 타임을 계산하시오. 액세스는 블록 단위로 이루어지며,
+버퍼 캐시는 총 3개의 블록을 저장할 수 있다고 가정한다. 버퍼 캐시에서의 액세스
+타임은 0.1ms, 그 외의 경우는 10ms로 계산할 것.
+액세스 패턴: A, B, C, D, A, E, C, B, A, D
