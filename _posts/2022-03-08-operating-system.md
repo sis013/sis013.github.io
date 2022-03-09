@@ -37,6 +37,17 @@ Interrupt와 Polling
 2. 마이크로커널(microkernel) 구조와 모놀리틱커널(monolithic kernel) 구조의 차이점에 대해서 커널 서브시스템(kernel subsystem)의 프로그램 실행 레벨과 보호영역(protection domain) 관점에서 서술하시오. (operating system structure, kernel subsystem, protection)
 
 A: 
+microkernel은 분리된 address space에서 user-level process로 동작하며, monolithic kernel은 kernel-level에서 동작하며 하나의 address space에서 동자한다.  따라서 service fail시 미치는 영향이 microkernel더 적으며, fail이 발생하더라도 다른 커널에는 영향을 미치지 않으므로 security와 reliability가 monolithic kernel보다 좋다.
+
+Monolithic Kernel: 쉽게 말해 kernel의 모든 기능(functionality)를 하나의 정적(single, static) 바이너리 파일에 다 집어넣어 하나의 address space에서 동작하게 한다. 즉, file system, CPU scheduling, memory management 같은 기능을 하나로합쳐 하나의 address space에서 제공한다. system call interface에서 약간의 overhead가 발생하지만 kernel 내부에서의 통신은 빠르기 때문에 performance 이점이 분명하며, 이러한 이유에서 아직도 monolithic kernel을 사용한다. 
+
+Microkernel: microkernel 방식은 kernel을 모듈화를 한다. 이 방식은 kernel에서 필요없는 부분을 제거하고 분리된 address space에서 user-level program으로 구현을 함으로 os를 설계한다. 이렇게 설계하려면 커널안에 어떤 서비스가 kernel안에 있어야 하며, 어떤 것이 user space에서 구현되야 할지 생각해야한다. 하지만 microkernel은 작은 프로세스 크기와 memory management를 제공하며 communication또한 편리하다.(app 간 통신은 system call이 아니라 message passing을 통해 이루어지며, microkernel의 main function이 제공한다.) 
+- microkernel은 os의 확장이 쉽다(거의 바뀌지 않고 바꾼다면 조금 바뀌기 때문). 
+- microkernel은 작기 때문에 hardware로의 porting이 쉽다.
+- process가 user-level에서 작동하기 때문에 security와 reliability가 높다.
+- system-function overhead로 인해 performance 향상이 어렵다. 
+
+Layered kernel: monolithic kernel은 kernel system이 tightly-coupled되어있어 하나의 서브 시스템 변경이 여러 반경에 영향을 미치는 반면, layered kernel은 loosed-coupled system으로 system implement가 자유롭다. (simplicity of construction and debugging)
 
 3. DMA(direct memory access)를 사용하여 CPU의 실행 부하(execution load)없이 고속 입출력 장치들을 사용하고자 한다. 이때 장치로의 메모리 연산이 완료되었음을 CPU가 알 수 있는 방법이 무엇이며, 그 방법과 트랩(trap)과의 차이에 대해서 서술하시오. (I/O hardware, DMA)
 A:
