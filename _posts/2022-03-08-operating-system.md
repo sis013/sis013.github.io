@@ -38,6 +38,7 @@ Interrupt와 Polling
 
 A: 
 microkernel은 분리된 address space에서 user-level process로 동작하며, monolithic kernel은 kernel-level에서 동작하며 하나의 address space에서 동자한다.  따라서 service fail시 미치는 영향이 microkernel더 적으며, fail이 발생하더라도 다른 커널에는 영향을 미치지 않으므로 security와 reliability가 monolithic kernel보다 좋다.
+protection domain에는 interrupt handlers, kernel processes, device drivers, system calls 등의 코드가 동작한다. 
 
 Monolithic Kernel: 쉽게 말해 kernel의 모든 기능(functionality)를 하나의 정적(single, static) 바이너리 파일에 다 집어넣어 하나의 address space에서 동작하게 한다. 즉, file system, CPU scheduling, memory management 같은 기능을 하나로합쳐 하나의 address space에서 제공한다. system call interface에서 약간의 overhead가 발생하지만 kernel 내부에서의 통신은 빠르기 때문에 performance 이점이 분명하며, 이러한 이유에서 아직도 monolithic kernel을 사용한다. 
 
@@ -48,6 +49,8 @@ Microkernel: microkernel 방식은 kernel을 모듈화를 한다. 이 방식은 
 - system-function overhead로 인해 performance 향상이 어렵다. 
 
 Layered kernel: monolithic kernel은 kernel system이 tightly-coupled되어있어 하나의 서브 시스템 변경이 여러 반경에 영향을 미치는 반면, layered kernel은 loosed-coupled system으로 system implement가 자유롭다. (simplicity of construction and debugging)
+
+process는 갖고 있는 권한내에서만 h/w 및 s/w object들에 access해야한다. 즉, 필요한만큼만의 최소한의 권한(privilege)를 가져야한다. need-to-know
 
 3. DMA(direct memory access)를 사용하여 CPU의 실행 부하(execution load)없이 고속 입출력 장치들을 사용하고자 한다. 이때 장치로의 메모리 연산이 완료되었음을 CPU가 알 수 있는 방법이 무엇이며, 그 방법과 트랩(trap)과의 차이에 대해서 서술하시오. (I/O hardware, DMA)
 A:
