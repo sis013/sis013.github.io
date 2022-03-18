@@ -1,5 +1,6 @@
 ---
 title: "Performance variation across h/w resources and CTA size"
+classes: wide
 categories:
 - GPU
 - resource handling

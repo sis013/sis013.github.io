@@ -1,5 +1,6 @@
 ---
 title: "SpMV on GPU"
+classes: wide
 categories:
 - 기타
 keywords:

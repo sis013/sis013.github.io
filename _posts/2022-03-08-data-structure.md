@@ -4,6 +4,7 @@ categories:
 - 기타
 keywords:
 - data structure
+classes: wide
 ---
 **문제를 통해 배우는 자료구조**
 <!--more-->

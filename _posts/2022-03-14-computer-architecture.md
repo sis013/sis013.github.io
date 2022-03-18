@@ -1,5 +1,6 @@
 ---
 title: "Computer Architecture Fundamental"
+classes: wide
 categories:
 - 기타
 keywords:
