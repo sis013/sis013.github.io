@@ -116,24 +116,24 @@ CPU bound: CPU bound 프로그램은 CPU를 오래 점유할 수록 효율이 �
 9\. SJF(Shortest Job First) 스케줄링 알고리즘은 실질적으로 구현하기가 어렵다. 그 이유를 설명하고 해결하기 위해 시도할 수 있는 방안에 대해 자세히 설명하시오. 
 구현이 힘든 이유는 6에 설명함. 
 Approximate SJF scheduling은 이전 CPU burst의 길이가 다음 CPU burst의 길이와 비슷하다는 가정하에 이루어진다. 즉, 이전 CPU burst가 다음 CPU burst length에 영향을 주도록 식을 설계를 하면된다. 
-$\tau_{n}$을 가장 최근의 CPU burst length라고 했을 때, 다음 CPU burst length $\tau_{n+1}$는 다음과 같은 식으로 나타낼 수 있다. 
-$\tau_{n+1} = \alpha\tau_{n} + (1-\alpha)\alpha\tau_{n-1} + \cdots + (1-\alpha)^j\alpha\tau_{n-j} + \cdots + (1-\alpha)^{n+1}\tau_{0}$ ($0 \le \alpha \le 1$ ). 
+$$\tau_{n}$$을 가장 최근의 CPU burst length라고 했을 때, 다음 CPU burst length $$\tau_{n+1}$$는 다음과 같은 식으로 나타낼 수 있다. 
+$$\tau_{n+1} = \alpha\tau_{n} + (1-\alpha)\alpha\tau_{n-1} + \cdots + (1-\alpha)^j\alpha\tau_{n-j} + \cdots + (1-\alpha)^{n+1}\tau_{0}$$ ($$0 \le \alpha \le 1$$ ). 
 
 10\.    Time quantum (혹은 time slice)을 설명하고, 테스크의 특성과 관련하여 time quantum의 크기와 스케줄러의 성능에 관한 연관 관계를 설명하시오. 
 6\.에서 설명한 RR방식으로 설명하면 된다. RR scheduler는 time quantum 마다 context switching을 하기 때문에 time quantum 한 단위동안 대부분의 프로세스들이 완료되면 적절하다. 즉, time quantum이 너무 작으면 average turnaround time이 증가하고 context switching overhead또한 커져 성능이 안 좋아진다. 하지만 time quantum이 너무 커지면 FCFS와 다를게 없어진다. 
 
-11\.    두 프로세스들 $P_1, P_2$ 의 periods가 $p_1=50, p_2=100$ 이고, processing time은 $t_1=20, t_2=35$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 rate-monotonic scheduling 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오.
-(조건) When $P_2$ has higher priority than $P_1$
+11\.    두 프로세스들 $$P_1, P_2$$ 의 periods가 $$p_1=50, p_2=100$$ 이고, processing time은 $$t_1=20, t_2=35$$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 rate-monotonic scheduling 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오.
+(조건) When $$P_2$$ has higher priority than $$P_1$$
 
-12\.    두 프로세스들 $P_1, P_2$ 의 periods가 $p_1=50, p_2=100$ 이고, processing time은 $t_1=20, t_2=35$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 rate-monotonic scheduling 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오. 
-(조건) When $P_1$ has a higher priority than $P_2$ . 
+12\.    두 프로세스들 $$P_1, P_2$$ 의 periods가 $$p_1=50, p_2=100$$ 이고, processing time은 $$t_1=20, t_2=35$$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 rate-monotonic scheduling 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오. 
+(조건) When $$P_1$$ has a higher priority than $$P_2$$ . 
 
-13\.   두 프로세스들 $P_1, P_2$ 의 periods가 $p_1=50, p_2=80$ 이고, processing time은 $t_1=25, t_2=35$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 earliest-deadline-first (EDF) 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오. 
-(조건) When $P_1$ has a higher priority than $P_2$ . 
+13\.   두 프로세스들 $$P_1, P_2$$ 의 periods가 $$p_1=50, p_2=80$$ 이고, processing time은 $$t_1=25, t_2=35$$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 earliest-deadline-first (EDF) 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오. 
+(조건) When $$P_1$$ has a higher priority than $$P_2$$ . 
 
 14\.  Interprocess Communication(IPC) 모델은 shared memory 방식과 message passing 방식으로 나누는데, 각 방식에 대해 설명하고 특징 및 장단점을 비교하시오. 
 
-15\.  다음은 Eisenberg와 McGuire가 제안한 n개의 프로세스들에 대한 critical-section(CS) 문제의 해결방안으로서, 프로세스 $P_i$ 의 구조이다. 프로세스들이 공유하는 변수들이 다음과 같다고 하자. 
+15\.  다음은 Eisenberg와 McGuire가 제안한 n개의 프로세스들에 대한 critical-section(CS) 문제의 해결방안으로서, 프로세스 $$P_i$$ 의 구조이다. 프로세스들이 공유하는 변수들이 다음과 같다고 하자. 
 
 ```cpp
 enum pstate {idle, want-in, in-cs};
