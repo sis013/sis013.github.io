@@ -9,13 +9,13 @@ keywords:
 <!--more-->
 
 
-1. Provide a formal definition of "Graph" data structure, and describe its differences to "Tree" data strucutre.
+1\. Provide a formal definition of "Graph" data structure, and describe its differences to "Tree" data strucutre.
 A: 
 그래프 *G*는 두 개의 집합 *V*와 *E*로 구성된다. *V*는 공집합이 아닌 정점(vertex)의 유한 집합이다. *E*는 정점 쌍들의 집합으로, 이러한 쌍을 간선(edge)이라고 한다. 
 *V(G)*와 *E(G)*는 각각 그래프 *G*의 정점들의 집합과 간선들의 잡합을 나타낸다. 
 그래프 입장에서 트리는 사이클이 없는(acyclic) 연결 그래프이다. 따라서 트리는 그래프 자료구조에 포함될 수 있다. 
 
-2. Describe the formal definition of "Big-Oh", "Big-Omega", and "Big-Theta" notation.
+2\. Describe the formal definition of "Big-Oh", "Big-Omega", and "Big-Theta" notation.
 A: 
 점근 표기법은 같은 기능을 수행하는 두 프로그램의 시간 복잡도를 비교하거나 인스턴스 특성의 변화에 따라 실행 시간의 증가를 예측할 수 있게 하기 위함이다. 
 "Big-Oh": 모든 $n$, $n >= n_0$에 대해 $f(n) <= cg(n)$인 조건을 만족시키는 두 양의 상수 $c$와 $n_0$가 존재하기만 하면 $f(n)= O(g(n))$
@@ -24,17 +24,17 @@ A:
 "Big-Theta": 모든 $n$, $n >= n_0$에 대해 $c_1g(n) <= f(n) <= c_2g(n)$인 조건을 만족시키는 세 양의 상수 $c_1, c_2$와 $n_0$가 존재하기만 하면 $f(n)= \Theta(g(n))$. 
 "Big-Theta" 표기법이 가장 정확하다. 
 
-3. Model the World Wide Web with the "Graph" data structure. 
+3\. Model the World Wide Web with the "Graph" data structure. 
 A: x(모름)
 
-4. Describe the formal definition of "Big-Oh" notation and its strength and weakness compared to real experiments in performance evaluation. 
+4\. Describe the formal definition of "Big-Oh" notation and its strength and weakness compared to real experiments in performance evaluation. 
 
 A: 
 2.를 참고 
 Strength: 시간 복잡성의 중요한 부분에만 간단히 집중할 수 있다. 
 Weakness: 상한값에 대한 정보만 존재하며, 이 상한이 어느 정도로 좋은지는 알 수 없다. 
 
-5. Describe the differences between "Binary tree" and "B tree" data structure.
+5\. Describe the differences between "Binary tree" and "B tree" data structure.
 
 A: 
 Definition
@@ -48,7 +48,7 @@ Binary tree는 트리 높이가 $\log_(2)(n+1)$ 이다. 트리의 높이와 메�
 트리의 높이를 줄여야 한다. 따라서 B-tree는 차수가 2보다 높은 균형 트리이다. 
 정리: 탐색횟수는 B-tree가 더 높으나, 메모리접근 횟수가 적다. 
 
-6. Describe the differences between "B+ tree" and "B* tree" data structure. 
+6\. Describe the differences between "B+ tree" and "B* tree" data structure. 
 
 A: 
 B+ 트리에는 두 가지 종류의 노드가 있는데 바로 인덱스(index) 노드와 데이터(data) 노드이다. 
@@ -63,25 +63,25 @@ B+ tree: 차수가 *m*인 B+ tree 는 공백이거나 다음의 성질들을 만
 - 인덱스 노든 ㄴ차수 m인 B-tree를 정의한다. 각 인덱스 노드는 키를 갖고 있지만 원소를 갖고 있지는 않다. 
 - $A_i(0 \le i \le n < m)$ 가 서브트리에 대한 포인터이고, $K_i(1 \le i \le n < m)$ 가 키일 때, ...(무시)
 
-7. Provide a formal definition of "Max-heap" data structure. 
+7\. Provide a formal definition of "Max-heap" data structure. 
 
 A: 
 최대(최소) 트리는 각 노드의 키 값이(자식이 있다면) 그 자식의 키 값보다 작지(크지)않은 트리이다. Max-Heap은 최대 트리이면서 완전 이진 트리이다.
 Min-Heap은 최소 트리이면서 완전 이진 트리이다.
 
-8. Provide a formal definition of "B tree" data structure. 
+8\. Provide a formal definition of "B tree" data structure. 
 
 A: 
 5.를 참고
 
-9. Provide a formal definitio of "AVL tree" data structure. 
+9\. Provide a formal definitio of "AVL tree" data structure. 
 
 A: 
 공백 트리는 높이 균형을 이룬다. 트리 $T$가 왼쪽과 오른쪽 서브트리인 $T_L$ 과 $T_R$ 을 ㄱ가진 공백이 아닌 이진 트리라고 할 때 아래 조건을 만족시키면 트리 $T$ 는 높이 균형을 이루며 그 역도 성립한다. 
 - $T_L$과 $T_R$이 높이 균형을 이룬다. 
 - $|h_L - h_R| \le 1$ ($h_L$과 $h_R$은 각각 $T_L$과 $T_R$의 높이)이다.
 
-10. Provide a formal definition of "M-way tree" data structure. 
+10\. Provide a formal definition of "M-way tree" data structure. 
 
 A: 
 m-way tree는 공백이거나 다음의 성질들을 만족시킨다. 

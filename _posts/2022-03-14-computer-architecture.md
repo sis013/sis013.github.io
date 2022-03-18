@@ -7,6 +7,7 @@ keywords:
 ---
 **문제를 통해 배우는 컴퓨터 구조**
 <!--more-->
+
 Q1. In virtual memory systems, performance is degraded due to
 page accesses (twice, at least). How can we reduce the number
 of page accesses.
@@ -52,23 +53,67 @@ Instruction-Level-Parallelism (pipelining 부터 multiple instruction issue)을 
 Simple operation set으로 인해 실수가 적다. 
 
 Q7. Explain superscalar structure and superpipeline structure.
+Superscalar: fetch multiple instructions
+Superpipeline: pipeline stage를 더 작은 단위의 stage로 쪼갠다. 따라서 각 stage마다 매 사이클마다 여러 명령어가 처리될 수 있도록한다. 
+두 아키텍처 모두 ILP를 증가시켜 성능을 향상 시키기위한 구조이다. 
 
 Q8. Explain cache coherence protocol in multiprocessor systems
-with an example.
+with an example.(pg. 385)
+
+multiprocessor system에서는 각 프로세서가 각자 캐시를 갖고 있으므로 같은 메모리주소에 서로 다른 값을 갖고있을 수 있는 문제가 발생했다. 이 문제를 두고 cache coherence problem이라고 한다. 
+하나의 대원칙: 값을 읽을 때, 가장 최근에 쓰여진 값을 반환해야 한다.
+- Coherence: 읽기를 통해 어떤 값이 반환이 되어야 하는가 (e.g. write serialization)
+- Consistency: 쓰여진 값이 언제 반환될 건지 결정
+Snooping Protocol (a single private cache block using write invalidation protocol and a write-back cache)
+![A write invalidate, cache coherence protocol for a private write-back cache showing the states and state transitions for each block in the cache](../assets/images/cache-coherence-snooping.png){: width="50%" height="50%"0}{: .center}
+
+finite-state diagram으로 봤을 때, 3가지 state가 존재한다. 
+invalidate: 해당 block 사용불가
+shared: 해당 block은 잠재적으로 공유된다는 것을 가리킨다.  
+modified: private cache에서 update 된 block을 가리킨다.(다른 private cache의 block과 배타적임)
+
 
 Q9. Explain DMA(Direct Memory Access).
+CPU(host) 개입없이 device controller가 data block을 MM으로 직접 전송할 수 있다. 
 
 Q10. Why do we need TLB (Translation Lookahead Buffer). In case of page fault, explain the operation of the TLB?
+![paging hardware with TLB](../assets/images/tlb.png){: width="50%" height="50%"0}{: .center}
+빠른 Context-Switching을 위해 page table을 사용하며, page table은 매우크기 때문에 main memory에 저장한다. 하지만 main memory에 저장되어 있기 때문에
+여전히 매우 느린 memory access time을 갖고 있다(page table entry access -> access actual data). 
+따라서 이 문제를 해결하기 위해 fast-lookup hardware cache를 이용해 빠르게 page number를 찾게 되면 frame number를 memory access에 바로 사용할 수 있다. 
+
+page fault handling에서 missing page를 file system에서 가져와 physical memory에 저장하고, page table과 TLB에 반영을 한다. 
+그러고 나서 다시 명령을 수행한다. 이때 TLB에는 missing page가 들어있으므로, TLB에서는 page hit이 된다. 
 
 Q11. What is CPI? In case CPI is low, performance may be
 higher. But this is not always true; explain this case.
 
+clock per instruction; 프로그램 A를 machine X 와 Y에서 동작할 때, X는 3GHz로 동작하며 CPI가 1.5, Y는 1GHz로 동작하며 CPI가 1이다. Instruction Count가 같을 때, 초당 X는 $2*10^9$개의 명령어를 처리하는 반면, Y는 $10^9$개의 명령어만을 처리한다. 즉, X는 CPI가 높지만 Y보다 성능이 좋다. 
+
+
 Q12. Explain Amdahl’s law. Why is the law related to “make
 common cases faster”?
+
+프로그램에서 가속하고자 하는 부분을 F라고 했을 때, F를 S만큼 가속할 수 있을 때, 개선되는 성능은 다음의 Amdahl's law로 설명할 수 있다. 
+$Speed Up = 1-F + \frac{F}{S}$
+따라서 가속을 하여 어플리케이션의 성능을 높이려면 가속할 수 있는 부분 F가 커야한다. 따라서 "make common case faster"가 Amdahl's law와 관련이 깊다. 
 
 Q13. Explain the relation between processor frequency and
 clock cycle time. Additionally, in case of 2GHz CPU, what is the
 clock cycle time in terms of ps(pico second)?
 
+$ps = 10^{-12} second$, 2GHz -> $2*10^9$ cycles per a second, which is sames as 1 cycles per $\frac{1}{2*10^9}$
+$clock cycle time = 0.5*10^{-9} second = 0.5 * 10^{-9} * 10^{12} pico second = 500 pico second$
+
 Q14. Explain spatial locality AND temporal locality. How do they
 different? Explain with examples.
+
+spatial locality: 접근한 데이터 인근의 데이터에 접근할 확률이 높다. 
+temporal locality: 접근한 데이터에 다시 접근할 확률이 높다. 
+
+int array[100];
+for (int i = 0; i < 100; i++){
+    array[i] += 1;
+}
+
+위의 코드가 있을 때, i변수에 대해 temporal locality가 존재하며, 배열 array의 데이터에 대해 spatial locality가 존재한다. 
