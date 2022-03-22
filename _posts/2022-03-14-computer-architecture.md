@@ -119,9 +119,11 @@ $clock cycle time = 0.5*10^{-9} second = 0.5 * 10^{-9} * 10^{12} pico second = 5
 spatial locality: 접근한 데이터 인근의 데이터에 접근할 확률이 높다. 
 temporal locality: 접근한 데이터에 다시 접근할 확률이 높다. 
 
+```cpp
 int array[100];
 for (int i = 0; i < 100; i++){
     array[i] += 1;
 }
+'''
 
 위의 코드가 있을 때, i변수에 대해 temporal locality가 존재하며, 배열 array의 데이터에 대해 spatial locality가 존재한다. 
