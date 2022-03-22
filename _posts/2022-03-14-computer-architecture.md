@@ -129,7 +129,56 @@ for (int i = 0; i < 100; i++){
 
 위의 코드가 있을 때, i변수에 대해 temporal locality가 존재하며, 배열 array의 데이터에 대해 spatial locality가 존재한다. 
 
-**QA1. Cache and Performance**
+**Classes of Parallelism**  
+두 상위 분류의 병렬화는 4개의 computer hardware level에서의 병렬화를 통해 실현된다. 
+--application level--
+1\. Data-level parallelism(DLP): 많은 데이터들이 동시에 처리될 수 있다. 
+    - Instruction-level parallelism(ILP)
+    - Vector architectures, GPUs
+    - Thread-level parallelism
+
+2\. Task-level parallelism(TLP): 여러 작업들이 독립적으로 병렬로 실행된다. 
+    - Thread-level parallelism
+    - Request-level parallelism
+
+
+**Cache Miss (3Cs)**
+
+- **Compulsory**: Cold miss. 블록의 첫 번째 접근은 캐시에 있을 수 없다. 따라서 miss가 발생할 수 밖에 없다. (크기가 무한인 캐시의 경우, Compusory miss만 발생한다. )
+
+- **Capacity**: 프로그램의 실행동안 필요한 모든 블록을 캐시가 갖고 있을 수 없다. Capacity miss가 발생하면 캐시안에 있는 블록이 cache policy에 의해 버려진다. 
+
+- Conflict: 캐시가 fully-associative가 아니라면, 여러개의 블록이 같은 set에 mapping 되기 때문에 발생한다. (tag miss)
+
+**Cache Optimization**
+
+- Larger block size to reduce *miss rate*:   
+    pros: blcok size를 키움으로써 spatial locality를 증가시켜 miss rate를 감소시키는 전략 + Compulsory miss 감소  
+    cons: miss penalty가 증가하고, capacity 와 conflict miss를 증가시킨다(작은 캐시에서 더 심해진다).   
+
+- Bigger caches to reduce *miss rate*:  
+    pros: cache capacity를 증가시킴으로써 capacity miss를 감소시킬 수 있다.  
+    cons: cache size가 커질수록 hit time이 증가한다 + static & dynamic power 증가  
+
+- Higher associativity to reduce *miss rate*:  
+    pros: 높은 associativity는 conflict miss를 감소시킨다.  
+    cons: hit time이 증가하며 power consumption 또한 증가한다.  
+
+- Multilevel caches to reduce *miss penalty*:   
+    pros: L1\$보다는 느리지만 M.M보다 빠르고, L1\$보다 크지만 M.M보다 작은 용량의 캐시를 만들면 processor access와 M.M access의 gap이 줄어들어, power & cost efficient한 시스템을 구성할 수 있다.  
+
+- Giving priority to read misses over writes to reduce miss penalty:  (RAW hazard: W->R)
+    기존의 write-back cache 였다면, read miss가 발생했을 때, dirty block을 memory에 작성하고나서 읽게된다.  
+    하지만 write buffer를 사용하여 위의 기법을 적용하면, dirty block은 write buffer에 복사하고, 읽기 작업을 수행하고, 그리고나서 쓰기 작업을 수행한다. 
+
+    write-through인 경우, write buffer가 빌 때까지 기다려야하기 때문에 read miss penalty가 증가한다. 
+    하지만 write buffer 내용물을 확인하고, conflict가 없으면 memory access를 계속 진행해도 된다. 
+
+- Avoiding address translation during indexing of the cache to reduce hit time
+    Virtual memory를 사용하는 경우, physical page address로 변환하고, 캐시의 tag와 비교를 해야하기 때문에 두번의 memory access가 두번 발생한다. 하지만 이때 page table은 크기 때문에 M.M에 저장되어 있어서 cache indexing time과의 gap이 상당하다. 따라서 page translation time을 줄이기 위해 TLB를 적용한다.
+    *L1캐시의 크기나 구조에 대해 제약이 걸릴 수 도 있지만, TLB를 적용했을 떄의 이점이 더 크다.* 
+
+**Cache and Performance**
 
 $2^{Index} = \frac{Cache Size}{Blocksize \times Set Associativity}$
 
@@ -159,3 +208,4 @@ TLB: 2-way set associative with 256 entries
 L1\$: direct-mapped 16KiB  
 L2\$: 4-way set-associative with a total of 4 MiB. Both use 64-byte blocks  
 V.A: 64bits     P.A: 40bits  
+
