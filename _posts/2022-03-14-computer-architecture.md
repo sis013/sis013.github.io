@@ -37,6 +37,7 @@ single cycle implementation의 작업을 쪼개 한 stage 당 작은 단위의 �
 
 **Data hazard**: data에는 dependency (Read After Write, Write After Read, Write After Write)가 존재하므로, dependency가 없어질 때까지 stall 된다.  
 -> WAW, WAR hazard 같은 경우에는 OoO(Out-of-Order) 프로세서에서 발생하는 data hazard로, tomasulo's algorithm을 사용해 register renaming을 통해 해결할 수 있다.  
+-> RAW hazard 같은 경우에는 resolving이(완전히 없애는게) 불가능한 hazard이다. 이를 해결하기 위해서는 data forwarding을 통해 stall cycle을 줄일 수 있다. 
 
 **Q4. For I/O operations, there are two methods: polling and interrupt. Explain two methods and present pros and cons of each method.**
 
@@ -87,22 +88,36 @@ invalidate: 해당 block 사용불가
 shared: 해당 block은 잠재적으로 공유된다는 것을 가리킨다.    
 modified: private cache에서 update 된 block을 가리킨다.(다른 private cache의 block과 exclusive함을 내포한다) 
 
+다이어그램과 밑의 설명을 잘 읽어보자(여러번 봐야함){: .notice--warning}
+
 ![A write invalidate, cache coherence protocol for a private write-back cache showing the states and state transitions for each block in the cache](/assets/images/cache-coherence-snooping.png)
 
 위의 그림은 한 CPU(own)로부터 발생한 request에 대한 다이어그램이다.   
-*오직 하나의 CPU만이 bus를 점유할 수 있다(global이라서).
+*오직 하나의 CPU만이 bus를 점유할 수 있다(global bus라서).*  
 
 
-**INVALID**
-    - Read Miss(Normal Miss): Place read miss on bus. -> Shared
-    - Write Miss(Normal Miss): Place write miss on bus. -> Modified
+**INVALID**  
+    - Read Miss(Normal Miss): Place read miss on bus. -> Shared  
+    - Write Miss(Normal Miss): Place write miss on bus. -> Modified  
+
+**SHARED**  
+    - Read Hit(Normal Hit): Read data in local cache. -> Shared  
+    - Read Miss(Replacement): Address miss: place read miss on bus -> Shared  
+    - Write Hit(Coherence): Place invalidate on bus.  -> Modified
+    - Write Miss(Replacement): Address miss: place write miss on bus -> Modified 
+
+**MODIFIED**
+    - Read Hit(Normal Hit): Read data in local cache. -> Modified  
+    - Read Miss(Replacement): Address miss: write-back block; then place read miss on bus -> Shared  
+    - Write Hit(Normal hit): write data in local cache -> Modified
+    - Write Miss(Replacement): Address miss: write-back block; then place write miss on bus -> Modified
+
+다음은 bus에 의한 상태 변경이다. Bus를 통해 온 request를 어떻게 처리하냐 
+
+![transitionss based on operations on the bus](/assets/images/cache-coherence-bus.png)
 
 **SHARED**
-    - Read Hit(Normal Hit): Read data in local cache. -> Shared
-    - Read Miss(Replacement): Address miss; place read miss on bus -> Shared
-    - Write Hit(Coherence): Place invalidate on bus. 
-
-
+    - Read Miss(No action): Allow shared cache or memory to service read miss. 
 
 **Q9. Explain DMA(Direct Memory Access).**  
 
