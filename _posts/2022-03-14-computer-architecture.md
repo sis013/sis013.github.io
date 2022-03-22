@@ -152,9 +152,10 @@ Average memory access time(AMAT) = $Hit time + Miss rate $\times$ Miss penalty$
 Average memory access time(AMAT) = $Hit time_{L1} + Miss rate_{L1} \times (Hit time_{L2} + Miss rate_{L2} \times Miss penalty_{L2})$
 
 **Memory  Hierarchy going from virtual address to L2 cache access**
-![Memory Hierarchy with Virtual Memory](/assets/images/memory-hierarchy.png)
+![Memory Hierarchy with Virtual Memory](/assets/images/memory-hierarchy.png)  
+
 page size: 16KiB  
 TLB: 2-way set associative with 256 entries  
-L1$: direct-mapped 16KiB  
-L2$: 4-way set-associative with a total of 4 MiB. Both use 64-byte blocks  
-V.A: 64bits     P.A: 40bits
+L1\$: direct-mapped 16KiB  
+L2\$: 4-way set-associative with a total of 4 MiB. Both use 64-byte blocks  
+V.A: 64bits     P.A: 40bits  
