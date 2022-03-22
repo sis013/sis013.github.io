@@ -18,8 +18,8 @@ A: 2배 이상 걸리는 이유: 2번의 memory accesses(physical address를 가
 
 **Q2. What is cache associativity? What is the relation between associativity and cache hit rate?** 
 
-각 메모리 주소마다 캐시에 저장되는 공간이 정해지는데(full-associativity 제외), 공간의 개수를 associativity.   
-cache associativity는 tag 마다 associativity가 높을수록 hit rate는 높아지지만 hit gain이 감소한다.  
+각 메모리 주소마다 캐시에 저장되는 공간이 정해지는데(full-associativity 제외), 공간의 개수를 associativity 라고 한다.   
+cache associativity는 tag 마다 associativity가 높을수록 hit rate는 높아지지만(reduce conflict miss) hit gain이 감소한다.  
 
 
 **Q3. Compared to single cycle implementation, what is the advantage of pipelining? List all the types of hazards and explain them. Additionally, write the solutions to all the types of hazards except stall.**  
@@ -148,7 +148,7 @@ for (int i = 0; i < 100; i++){
 
 - **Capacity**: 프로그램의 실행동안 필요한 모든 블록을 캐시가 갖고 있을 수 없다. Capacity miss가 발생하면 캐시안에 있는 블록이 cache policy에 의해 버려진다. 
 
-- Conflict: 캐시가 fully-associative가 아니라면, 여러개의 블록이 같은 set에 mapping 되기 때문에 발생한다. (tag miss)
+- **Conflict**: 캐시가 fully-associative가 아니라면, 여러개의 블록이 같은 set에 mapping 되기 때문에 발생한다. (tag miss)
 
 **Cache Optimization**
 
@@ -164,17 +164,17 @@ for (int i = 0; i < 100; i++){
     pros: 높은 associativity는 conflict miss를 감소시킨다.  
     cons: hit time이 증가하며 power consumption 또한 증가한다.  
 
-- Multilevel caches to reduce *miss penalty*:   
+- Multilevel caches to reduce *miss penalty*:    
     pros: L1\$보다는 느리지만 M.M보다 빠르고, L1\$보다 크지만 M.M보다 작은 용량의 캐시를 만들면 processor access와 M.M access의 gap이 줄어들어, power & cost efficient한 시스템을 구성할 수 있다.  
 
-- Giving priority to read misses over writes to reduce miss penalty:  (RAW hazard: W->R)
+- Giving priority to read misses over writes to reduce *miss penalty*:  (RAW hazard: W->R)   
     기존의 write-back cache 였다면, read miss가 발생했을 때, dirty block을 memory에 작성하고나서 읽게된다.  
     하지만 write buffer를 사용하여 위의 기법을 적용하면, dirty block은 write buffer에 복사하고, 읽기 작업을 수행하고, 그리고나서 쓰기 작업을 수행한다. 
 
     write-through인 경우, write buffer가 빌 때까지 기다려야하기 때문에 read miss penalty가 증가한다. 
     하지만 write buffer 내용물을 확인하고, conflict가 없으면 memory access를 계속 진행해도 된다. 
 
-- Avoiding address translation during indexing of the cache to reduce hit time
+- Avoiding address translation during indexing of the cache to *reduce hit time*   
     Virtual memory를 사용하는 경우, physical page address로 변환하고, 캐시의 tag와 비교를 해야하기 때문에 두번의 memory access가 두번 발생한다. 하지만 이때 page table은 크기 때문에 M.M에 저장되어 있어서 cache indexing time과의 gap이 상당하다. 따라서 page translation time을 줄이기 위해 TLB를 적용한다.
     *L1캐시의 크기나 구조에 대해 제약이 걸릴 수 도 있지만, TLB를 적용했을 떄의 이점이 더 크다.* 
 
@@ -205,7 +205,7 @@ Average memory access time(AMAT) = $Hit time_{L1} + Miss rate_{L1} \times (Hit t
 
 page size: 16KiB  
 TLB: 2-way set associative with 256 entries  
-L1\$: direct-mapped 16KiB  
-L2\$: 4-way set-associative with a total of 4 MiB. Both use 64-byte blocks  
+L1 cache: direct-mapped 16KiB   
+L2 cache: 4-way set-associative with a total of 4 MiB. Both use 64-byte blocks   
 V.A: 64bits     P.A: 40bits  
 
