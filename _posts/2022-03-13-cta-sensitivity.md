@@ -11,6 +11,8 @@ tags:
 - compiler
 keywords:
 - computer architecture
+
+use_math: true
 ---
 **Zorua: A holistic approach to resource virtualization in GPUs (MICRO16)**
 <!--more-->

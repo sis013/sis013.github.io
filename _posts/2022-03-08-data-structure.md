@@ -5,6 +5,8 @@ categories:
 keywords:
 - data structure
 classes: wide
+
+use_math: true
 ---
 **문제를 통해 배우는 자료구조**
 <!--more-->

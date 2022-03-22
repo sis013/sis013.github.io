@@ -7,6 +7,8 @@ tags:
 - os
 keywords:
 - os
+
+use_math: true
 ---
 **문제를 통해 배우는 운영체제**
 <!--more-->

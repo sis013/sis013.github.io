@@ -5,29 +5,27 @@ categories:
 - 기타
 keywords:
 - computer architecture
+use_math: true
 ---
 **문제를 통해 배우는 컴퓨터 구조**
 <!--more-->
 
 Q1. In virtual memory systems, performance is degraded due to
 page accesses (twice, at least). How can we reduce the number
-of page accesses.
-A: 2배 이상 걸리는 이유: 2번의 memory accesses(physical address를 가져오는 것과 data를 가져오는 것)
+of page accesses.  
+A: 2배 이상 걸리는 이유: 2번의 memory accesses(physical address를 가져오는 것과 data를 가져오는 것)  
 이때 address translation에 locality가 존재하므로, address translation을 저장하는 cache인 TLB(translation look-ahead buffer)를 설계해 page table에 대한 access 수를 줄인다.
 
 Q2. What is cache associativity? What is the relation between
-associativity and cache hit rate?
-각 메모리 주소마다 캐시에 저장되는 공간이 정해지는데(full-associativity 제외), 공간의 개수를 associativity. 
-cache associativity는 tag 마다 associativity가 높을수록 hit rate는 높아지지만 hit gain이 감소한다. 
+associativity and cache hit rate?  
+각 메모리 주소마다 캐시에 저장되는 공간이 정해지는데(full-associativity 제외), 공간의 개수를 associativity.   
+cache associativity는 tag 마다 associativity가 높을수록 hit rate는 높아지지만 hit gain이 감소한다.  
 
 
-Q3. Compared to single cycle implementation, what is the
-advantage of pipelining? List all the types of hazards and
-explain them. Additionally, write the solutions to all the types of
-hazards except stall.
-single cycle implementation의 작업을 쪼개 한 stage 당 작은 단위의 작업을 처리하기 때문에 clock speed를 높이기 쉬우며, 한 cycle에 여러개의 명령어가 처리될 수 있으므로 . 
-resource utilization가 높아지며 최종적으로 throughput이 증가해 성능이 증가한다. 
-3가지의 hazard가 존재한다. 
+Q3. Compared to single cycle implementation, what is the advantage of pipelining? List all the types of hazards and explain them. Additionally, write the solutions to all the types of hazards except stall.  
+single cycle implementation의 작업을 쪼개 한 stage 당 작은 단위의 작업을 처리하기 때문에 clock speed를 높이기 쉬우며, 한 cycle에 여러개의 명령어가 처리될 수 있다.  
+따라서 resource utilization가 높아지며 최종적으로 throughput이 증가해 성능이 증가한다.  
+pipeline architecture에 존재하는 3가지의 hazard가 존재한다.  
 Control hazard: branch나 jump instruction가 decoding되거나 resolve 될 때, 이전 명령어들은 전부 flush된다. 
 -> branch prediction을 통해 flush로 발생하는 penalty를 줄일 수 있다. 
 Structural hazard: stage 당 명령어를 처리할 수 있는 resource가 한정되어 있으므로, 명령어는 다음 스테이지의 자원이 사용가능해질 때까지 stall된다. 

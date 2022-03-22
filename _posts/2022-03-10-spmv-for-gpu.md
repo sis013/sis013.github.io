@@ -5,6 +5,8 @@ categories:
 - 기타
 keywords:
 - data structure
+
+use_math: true
 ---
 **An Efficient Sparse Matrix Multiplication for skewed matrix on GPU, HPCC12**
 <!--more-->
