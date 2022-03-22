@@ -13,7 +13,7 @@ use_math: true
 **문제를 통해 배우는 운영체제**
 <!--more-->
 
-1\. 다음 그림은 CPU와 I/O device 간 timeline을 보여주고 있다. 그림을 통해 에측할 수 있는 작업 상황에 대해 설명하고, 시간 $t_1, t_2, t_3$ 에서 CPU와 I/O device 사이에 발생하는 이벤트 작업에 대해 매 시간대별로 설명하시오. (I/O system)  
+**1\. 다음 그림은 CPU와 I/O device 간 timeline을 보여주고 있다. 그림을 통해 에측할 수 있는 작업 상황에 대해 설명하고, 시간 $t_1, t_2, t_3$ 에서 CPU와 I/O device 사이에 발생하는 이벤트 작업에 대해 매 시간대별로 설명하시오. (I/O system)**  
 
 A: CPU는 interrupt-request line을 가지고 있으며, 현 timeline을 통해 CPU가 I/O device로부터 data를 읽어오는 작업의 일부를 보여준다.  
 
@@ -37,7 +37,7 @@ MMIO에서는 4개의 register(data-in, data-out, status, control)로 구성되�
 
 Interrupt와 Polling  
 
-2\. 마이크로커널(microkernel) 구조와 모놀리틱커널(monolithic kernel) 구조의 차이점에 대해서 커널 서브시스템(kernel subsystem)의 프로그램 실행 레벨과 보호영역(protection domain) 관점에서 서술하시오. (operating system structure, kernel subsystem, protection)  
+**2\. 마이크로커널(microkernel) 구조와 모놀리틱커널(monolithic kernel) 구조의 차이점에 대해서 커널 서브시스템(kernel subsystem)의 프로그램 실행 레벨과 보호영역(protection domain) 관점에서 서술하시오. (operating system structure, kernel subsystem, protection)**  
 
 A:  
 microkernel은 분리된 address space에서 user-level process로 동작하며, monolithic kernel은 kernel-level에서 동작하며 하나의 address space에서 동자한다.  따라서 service fail시 미치는 영향이 microkernel더 적으며, fail이 발생하더라도 다른 커널에는 영향을 미치지 않으므로 security와 reliability가 monolithic kernel보다 좋다.  
@@ -55,14 +55,14 @@ Layered kernel: monolithic kernel은 kernel system이 tightly-coupled되어있�
 
 process는 갖고 있는 권한내에서만 h/w 및 s/w object들에 access해야한다. 즉, 필요한만큼만의 최소한의 권한(privilege)를 가져야한다. need-to-know  
 
-3\. DMA(direct memory access)를 사용하여 CPU의 실행 부하(execution load)없이 고속 입출력 장치들을 사용하고자 한다. 이때 장치로의 메모리 연산이 완료되었음을 CPU가 알 수 있는 방법이 무엇이며, 그 방법과 트랩(trap)과의 차이에 대해서 서술하시오. (I/O hardware, DMA)  
+**3\. DMA(direct memory access)를 사용하여 CPU의 실행 부하(execution load)없이 고속 입출력 장치들을 사용하고자 한다. 이때 장치로의 메모리 연산이 완료되었음을 CPU가 알 수 있는 방법이 무엇이며, 그 방법과 트랩(trap)과의 차이에 대해서 서술하시오. (I/O hardware, DMA)**  
 
 A: CPU는 device가 device driver를 통해 작업이 완료되었다는 interrupt를 받음으로써 알 수 있다.  
 trap은 user application에 의해 발생되는 signal raise이며, OS의 기능을 활용하기 위해 발생한다. Interrupt는 CPU로 하여금 interrupt routine을 실행하도록 한다.  
 trap은 trap instruction을 수행하고 발생하는 synchronous한 process이지만, interrupt는 언제나 발생할 수 있는 asynchronous process이다.  
 모든 trap은 interrupt이다. 하지만 모든 interrupt이 trap은 아니다.  
 
-4\. 임계구역 문제(Critical-section problem)의 해결책은 세 가지 요구사항인 Mutual exclusion, Progress, 그리고 Bounded waiting을 만족시켜야 하는데, 이러한 세 가지 요구사항에 대해 설명하시오. (process synchronization)  
+**4\. 임계구역 문제(Critical-section problem)의 해결책은 세 가지 요구사항인 Mutual exclusion, Progress, 그리고 Bounded waiting을 만족시켜야 하는데, 이러한 세 가지 요구사항에 대해 설명하시오. (process synchronization)**  
 A:  
 Multual exclusion: 하나 이상의 자원이 공유 불가능한 상태로 유지되어야 한다.   
 -> 한 프로세스가 critical section에서 실행되고 있을 때, 다른 프로세스들은 critical section에서 실행되지 못한다.  
@@ -73,11 +73,11 @@ Bounded waiting: 프로그램이 critical section에 진입하기전 대기 시�
 -> crtical section에 진입하기위한 대기 시간이 제한된다(유한하다).  
 
 
-5\. Multiprocessor 환경에서 발생될 수 있는 문제 중 하나인 cache coherency에 대해 설명하시오. (Process synchronization)  
+**5\. Multiprocessor 환경에서 발생될 수 있는 문제 중 하나인 cache coherency에 대해 설명하시오. (Process synchronization)**  
 A:  
 multiprocessor system에서 각 코어는 local cache를 가지고, 데이터들은 이 local cache들에 복사가 되어져 저장된다. 그리고 각 CPU들은 병렬적으로 실행될 수 있기 때문에 한 캐시의 데이터가 변경되면 같은 데이터가 존재하는 모든 캐시들 또한 값을 변경해줘야한다. 이 상황을 cache coherency라고 한다.   
 
-6\. CPU 스케줄링 알고리즘들(scheduling algorithm)인 FIFO(First In First Out), SJF(Shortest Job First), RR(Round Robin)의 스케줄링 방식에 대해 설명하고, 장단점을 비교 분석하시오. (CPU schduling)  
+**6\. CPU 스케줄링 알고리즘들(scheduling algorithm)인 FIFO(First In First Out), SJF(Shortest Job First), RR(Round Robin)의 스케줄링 방식에 대해 설명하고, 장단점을 비교 분석하시오. (CPU schduling)**  
 CPU burst time은 단순히 CPU가 동작하는 시간을 말하고, I/O burst는 I/O 가 동작하는데 걸리는 시간이다.  
 
 FIFS(First Come First Serve): CPU를 먼저 request한 프로세스를 CPU에 먼저 할당한다. FIFO queue를 이용해 구현하기 때문에 FIFO라고 한 것 같다.  
@@ -93,7 +93,7 @@ RR(round Robin): FCFS와 비슷한 스케줄링 방식이지만 선점(preemptiv
 pros: 비선점방식으로 동작할 수 있다.   
 cons: interval(time quantum) 단위에 의해 성능이 크게 좌우된다(interval이 짧으면 많은 context switching이 발생하고, 길면 FCFS와 비슷해진다). average waiting time이 길다.  
 
-7\. 선점형 스케줄러(preemptive scheduler)와 비선점형 스케줄러(non-preemptive scheduler)를 설명하고, 응답성 및 예측 가능성 측면에서 비교 분석하시오. (CPU scheduling)  
+**7\. 선점형 스케줄러(preemptive scheduler)와 비선점형 스케줄러(non-preemptive scheduler)를 설명하고, 응답성 및 예측 가능성 측면에서 비교 분석하시오. (CPU scheduling)**  
 
 non-preemptive scheduler: 비선점 방식으로, 프로세스가 완료되어야 context switching을 한다.  
 preemptive scheduler: 선점방식으로, 인터럽트나 I/O완료에 의해 context switching이 될 수 있다.  
@@ -102,7 +102,7 @@ Interactive system에서는 예측 가능한 응답 시간(predictable reponse t
 따라서 FCFS 같은 non-preemptive scheduling 방식으로 일정한 reponse time을 제공할 수 없으므로 preemptive scheduling 보다 안좋다(FCFS에서 convoy effect로 waiting time이 비약적으로 증가할 수 있다). queue방식으로 구현되기 때문에 다음 프로세스의 시간이나 turnaround time의 측정이 쉽다.  
 Preemptive scheduling 중 하나인 SJF scheduling 방식으로 가장 빠른 평균응답시간을 제공해 줄 수 있으나, 다음 CPU burst length를 알기 힘들기 때문에 유사한 알고리즘으로 구현해 사용한다.  
 
-8\. Short-term scheduler와 Long-term scheduler의 차이점을 설명하고, (1)과 (2) 상황이 발생하는 경우, 스케줄러(scheduler)와 큐(queue) 관점에서 자세히 설명하시오.   
+**8\. Short-term scheduler와 Long-term scheduler의 차이점을 설명하고, (1)과 (2) 상황이 발생하는 경우, 스케줄러(scheduler)와 큐(queue) 관점에서 자세히 설명하시오.**   
 (1) If all processes in the ready queue are I/O bound.  
 (2) If all proccesses in the ready queue are CPU bound.  
 
@@ -116,7 +116,7 @@ CPU bound: CPU bound 프로그램은 CPU를 오래 점유할 수록 효율이 �
     (4) Short term scheduler가 Long term scheduler보다 더 자주 프로세스를 고른다.   
 
 
-9\. SJF(Shortest Job First) 스케줄링 알고리즘은 실질적으로 구현하기가 어렵다. 그 이유를 설명하고 해결하기 위해 시도할 수 있는 방안에 대해 자세히 설명하시오.  
+**9\. SJF(Shortest Job First) 스케줄링 알고리즘은 실질적으로 구현하기가 어렵다. 그 이유를 설명하고 해결하기 위해 시도할 수 있는 방안에 대해 자세히 설명하시오.**  
 
 구현이 힘든 이유는 6에 설명함.  
 
@@ -124,11 +124,11 @@ Approximate SJF scheduling은 이전 CPU burst의 길이가 다음 CPU burst의 
 $\tau_{n}$을 가장 최근의 CPU burst length라고 했을 때, 다음 CPU burst length $\tau_{n+1}$는 다음과 같은 식으로 나타낼 수 있다. 
 $\tau_{n+1} = \alpha\tau_{n} + (1-\alpha)\alpha\tau_{n-1} + \cdots + (1-\alpha)^j\alpha\tau_{n-j} + \cdots + (1-\alpha)^{n+1}\tau_{0}$ ($0 \le \alpha \le 1$ ).   
 
-10\.    Time quantum (혹은 time slice)을 설명하고, 테스크의 특성과 관련하여 time quantum의 크기와 스케줄러의 성능에 관한 연관 관계를 설명하시오.  
+**10\.    Time quantum (혹은 time slice)을 설명하고, 테스크의 특성과 관련하여 time quantum의 크기와 스케줄러의 성능에 관한 연관 관계를 설명하시오.**  
 
-6\.에서 설명한 RR방식으로 설명하면 된다. RR scheduler는 time quantum 마다 context switching을 하기 때문에 time quantum 한 단위동안 대부분의 프로세스들이 완료되면 적절하다. 즉, time quantum이 너무 작으면 average turnaround time이 증가하고 context switching overhead또한 커져 성능이 안 좋아진다. 하지만 time quantum이 너무 커지면 FCFS와 다를게 없어진다.   
+**6\.**에서 설명한 RR방식으로 설명하면 된다. RR scheduler는 time quantum 마다 context switching을 하기 때문에 time quantum 한 단위동안 대부분의 프로세스들이 완료되면 적절하다. 즉, time quantum이 너무 작으면 average turnaround time이 증가하고 context switching overhead또한 커져 성능이 안 좋아진다. 하지만 time quantum이 너무 커지면 FCFS와 다를게 없어진다.   
 
-11\.    두 프로세스들 $P_1, P_2$ 의 periods가 $p_1=50, p_2=100$ 이고, processing time은 $t_1=20, t_2=35$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 rate-monotonic scheduling 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오.  
+**11\.    두 프로세스들 $P_1, P_2$ 의 periods가 $p_1=50, p_2=100$ 이고, processing time은 $t_1=20, t_2=35$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 rate-monotonic scheduling 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오.**  
 (조건) When $P_2$ has higher priority than $P_1$  
 
 Rate-Monotonic Scheduling: 선점방식으로, 주기적인 작업을 static priority policy를 이용해 scheduling한다.   
@@ -136,7 +136,7 @@ Rate-Monotonic Scheduling: 선점방식으로, 주기적인 작업을 static pri
 0~35: $P_2$  
 35~55: $P_1$ -> $P_1$의 deadline이 50으로, deadline을 놓친다.  
 
-12\.    두 프로세스들 $P_1, P_2$ 의 periods가 $p_1=50, p_2=100$ 이고, processing time은 $t_1=20, t_2=35$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 rate-monotonic scheduling 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오.  
+**12\.    두 프로세스들 $P_1, P_2$ 의 periods가 $p_1=50, p_2=100$ 이고, processing time은 $t_1=20, t_2=35$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 rate-monotonic scheduling 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오.**  
 (조건) When $P_1$ has a higher priority than $P_2$ .  
 
 11\.과 반대의 경우이다. $P_1$이 먼저 CPU를 점유한다.  
@@ -149,7 +149,7 @@ Rate-Monotonic Scheduling: 선점방식으로, 주기적인 작업을 static pri
 150~170: $P_1$  
 170~175: $P_2$  
 
-13\.   두 프로세스들 $P_1, P_2$ 의 periods가 $p_1=50, p_2=80$ 이고, processing time은 $t_1=25, t_2=35$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 earliest-deadline-first (EDF) 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오.  
+**13\.   두 프로세스들 $P_1, P_2$ 의 periods가 $p_1=50, p_2=80$ 이고, processing time은 $t_1=25, t_2=35$ 이라고 하자. 이 때, 두 프로세스들이 실시간 CPU 스케줄링(real-time CPU scheduling) 기법들 중 하나인 earliest-deadline-first (EDF) 기법으로 스케줄링될 때, 다음의 조건에 따른 수행 과정을 Gantt chart로 보이고 스케줄링이 적절히 되는지 여부를 설명하시오.** 
 (조건) When $P_1$ has a higher priority than $P_2$ .  
 
 Earliest-Deadline-Firs: deadline에 따라서 우선순위를 유동적으로 부여한다. deadline에 가까울수록 우선순위가 높다.   
@@ -161,7 +161,7 @@ Earliest-Deadline-Firs: deadline에 따라서 우선순위를 유동적으로 �
 125~145: P2  
 150~175: P1 **t=160: P1::40, P2::80**  
 
-14\.  Interprocess Communication(IPC) 모델은 shared memory 방식과 message passing 방식으로 나누는데, 각 방식에 대해 설명하고 특징 및 장단점을 비교하시오.  
+**14\.  Interprocess Communication(IPC) 모델은 shared memory 방식과 message passing 방식으로 나누는데, 각 방식에 대해 설명하고 특징 및 장단점을 비교하시오.**  
 
 process cooperation을 허용해주는 이유  
 - Information sharing: 여러 어플리케이션이 같은 정보를 원할 수 있기 때문에, 해당 정보에 대한 concurrent access가 가능한 환경을 제공해줘야 한다.  
@@ -173,7 +173,7 @@ Speed: Shared-memory가 더 빠르다(shared memory가 선언될 때만 system c
 Communication: message passing은 작은 데이터를 교환하기 편하다(conflict를 고려하지 않아도 됨). 따라서 분산시스템에서 유용하다.  
 Implementation: message passing 방식은 conflict를 고려하지 않아도 되므로 분산시스템에서 구현하기 더 쉽다.    
 
-15\.  다음은 Eisenberg와 McGuire가 제안한 n개의 프로세스들에 대한 critical-section(CS) 문제의 해결방안으로서, 프로세스 $P_i$ 의 구조이다. 프로세스들이 공유하는 변수들이 다음과 같다고 하자.    
+**15\.  다음은 Eisenberg와 McGuire가 제안한 n개의 프로세스들에 대한 critical-section(CS) 문제의 해결방안으로서, 프로세스 $P_i$ 의 구조이다. 프로세스들이 공유하는 변수들이 다음과 같다고 하자.**    
 
 ```cpp
 enum pstate {idle, want-in, in-cs};
@@ -210,17 +210,12 @@ Progress: 여러 프로세스가 동시에 플래그를 in_cs로 설정되어있
 
 Bounded Limiting: 코드를 통해, 프로세스가 critical section의 진입을 원할 때, 플래그가 idle 상태로 설정되지 않는다는 것으로 충족된다. 따라서 'k' 프로세스가 존재하고 이 프로세스가 critical section에 진입하고 싶을 때, 'k'와 'turn'사이의 모든 프로세스는 차례대로 critical section에 진입하고 난 후 'k'프로세스가 진입할 것이며, 'k'프로세스가 진입할 때, 이외의 모든 프로세스는 critical section에 진입하지 못한다.  
 
-16\. 페이징 기법을 이용하는 가상 메모리 구조에서는 메모리에 해당 페이지가 없을 때,
-페이지 교체를 통해 원하는 페이지를 메모리에 적재한 후 사용한다. 그러나 이런 페
-이지 교체가 자주 발생하게 되면, 프로세스의 처리 시간보다 메모리의 페이지 교체
-시간이 더 길어지는 쓰레싱(thrashing) 문제가 발생할 수 있다. 이와 같은 문제의 원
-인과 해결 방안을 설명하시오.  
+**16\. 페이징 기법을 이용하는 가상 메모리 구조에서는 메모리에 해당 페이지가 없을 때, 페이지 교체를 통해 원하는 페이지를 메모리에 적재한 후 사용한다. 그러나 이런 페이지 교체가 자주 발생하게 되면, 프로세스의 처리 시간보다 메모리의 페이지 교체시간이 더 길어지는 쓰레싱(thrashing) 문제가 발생할 수 있다. 이와 같은 문제의 원인과 해결 방안을 설명하시오.**  
 
 프로세스가 요청한 페이지들을 전부 할당하지 못했을 때(underallocation), 연속적인 page fault가 발생한다. 
 시스템은 CPU utilization과 multiprogramming level의 비교를 통해 thrashing을 탐지할 수 있다. Thrashing은 multiprogramming level을 감소함으로서 해결할 수 있다.  
 
-17\. 4 GB 가상메모리(virtual memory)를 갖는 시스템에서 페이지 크기(page size)가 1
-MB 라고 할 때, 다음 물음에 답하시오.  
+**17\. 4 GB 가상메모리(virtual memory)를 갖는 시스템에서 페이지 크기(page size)가 1MB 라고 할 때, 다음 물음에 답하시오.**  
 (1) 페이지 테이블에 저장할 수 있는 엔트리의 수를 구하시오.  
 (2) 같은 프로세스를 처리하는 시스템 환경에서 페이지 크기(page size)가 4KB로 변
 경된다고 할 때, I/O time과 Internal fragmentation 측면에서 예측할 수 있는 오
@@ -233,20 +228,14 @@ I/O time은 transfer, seek, latency 세 부분으로 이루어져 있으며, tra
 Page size가 작아지면 internal fragmentation 크기가 작아져 메모리 공간을 효율적으로 사용할 수 있지만, 여러 페이지를 요청하게 되므로 I/O time이 증가하게 된다.  
 
 
-18\. 4개의 frames을 사용하는 메모리 시스템(memory system)에서 프로세스 수행을 위
-한 reference string이 다음과 같을 때, 다음 3가지 Page-replacement algorithms을
-사용하여 교체되는 과정을 그림에 표현하고 발생한 페이지 부재(page faults) 수를
-구하시오. (단, 교체 대상 페이지가 2개 이상인 경우에는 FIFO 기법을 적용함.)  
+**18\. 4개의 frames을 사용하는 메모리 시스템(memory system)에서 프로세스 수행을 위한 reference string이 다음과 같을 때, 다음 3가지 Page-replacement algorithms을 사용하여 교체되는 과정을 그림에 표현하고 발생한 페이지 부재(page faults) 수를 구하시오. (단, 교체 대상 페이지가 2개 이상인 경우에는 FIFO 기법을 적용함.)**   
 (1) LRU replacement  
 (2) FIFO replacement  
 (3) Optimal replacement    
 
 OPT: when a page needs to be swapped in, the operating system swaps out the page whose next use will occur farthest in the future  
 
-19\. 5개의 프로세스들 P0, P1, P2, P3, P4에 할당된 자원의 수(Allocation), 작업 완료시까
-지 필요한 최대 자원의 수(Max), 그리고 현재 가용한 자원의 수(Available)가 다음과
-같다고 하자. Deadlock handling methods 중 하나인 Banker’s Algorithm을 사용하
-여 시스템이 안정 상태(safe state)인지 여부를 판단하시오.   
+**19\. 5개의 프로세스들 P0, P1, P2, P3, P4에 할당된 자원의 수(Allocation), 작업 완료시까지 필요한 최대 자원의 수(Max), 그리고 현재 가용한 자원의 수(Available)가 다음과 같다고 하자. Deadlock handling methods 중 하나인 Banker’s Algorithm을 사용하여 시스템이 안정 상태(safe state)인지 여부를 판단하시오.**   
 |    | Allocation | Max | Available |
 |    |A B C D     |A B C D| A B C D|
 |P0  |0 0 1 2     |0 0 1 2| 1 5 2 0|
@@ -263,7 +252,7 @@ vs resource-allocation-graph algorithm: The resource-allocation-graph algorithm 
 system with multiple instances of each resource type.  
 
 (1) Need matrix 정의: Max - Allocation  
-시스템이 safe state인지 확인하는 algorithm (safety algorithm)  
+**시스템이 safe state인지 확인하는 algorithm (safety algorithm)**  
 1\. 모든 i에 대해 Finish[i] = false  
 2\. Finish[i] == false && $Need_i \le Available$를 만족하는 i를 찾는다. 없으면 4\. 로 간다.  
 3\. Available = Available + $Allocation_i$  
@@ -280,10 +269,7 @@ $$Allocation_i = Allocation_i + Request_i$$
 $$Need_i = Need_i - Request_i$$
 이때, 시스템이 unsafe한 상태라면, 이전 상태로 복구하고, 기다린다(restore old state and wait).  
 
-20\. 유닉스 I-node가 10개의 직접 접근 블록과 각 1개씩의 1차(single), 2차(double) 간
-접 접근 블록(indirect block)까지 활용한다고 할 때, 한 파일이 표현할 수 있는 최대
-용량을 계산하시오. 단, 하나의 디스크 블록은 1KB 이며, 하나의 디스크 블록 주소는
-4 Bytes이다. (계산기 불필요 최종 결과는 수식으로 표현 가능)  
+**20\. 유닉스 I-node가 10개의 직접 접근 블록과 각 1개씩의 1차(single), 2차(double) 간접 접근 블록(indirect block)까지 활용한다고 할 때, 한 파일이 표현할 수 있는 최대 용량을 계산하시오. 단, 하나의 디스크 블록은 1KB 이며, 하나의 디스크 블록 주소는 4Bytes이다. (계산기 불필요 최종 결과는 수식으로 표현 가능)**  
 
 direct: 1KB x 10 = 10KB  
 single: 1KB/4Bytes x 1KB = 2^8 x 1KB  
