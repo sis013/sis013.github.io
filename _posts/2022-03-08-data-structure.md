@@ -23,10 +23,18 @@ A:
 
 A:  
 점근 표기법은 같은 기능을 수행하는 두 프로그램의 시간 복잡도를 비교하거나 인스턴스 특성의 변화에 따라 실행 시간의 증가를 예측할 수 있게 하기 위함이다.   
+
+--정의--
+
 "Big-Oh": 모든 $n$, $n >= n_0$에 대해 $f(n) <= cg(n)$인 조건을 만족시키는 두 양의 상수 $c$와 $n_0$가 존재하기만 하면 $f(n)= O(g(n))$  
+
 "Big-Omega": 모든 $n$, $n >= n_0$에 대해 $f(n) <= cg(n)$인 조건을 만족시키는 두 양의 상수 $c$와 $n_0$가 존재하기만 하면 $f(n)= \Omega(g(n))$.   
+
+"Big-Theta": 모든 $n$, $n >= n_0$에 대해 $c_1g(n) <= f(n) <= c_2g(n)$인 조건을 만족시키는 세 양의 상수 $c_1, c_2$와 $n_0$가 존재하기만 하면 $f(n)= \Theta(g(n))$.
+
+--특징--
 "Big-Omega"가 유의미해지려면 $g(n)$은 $f(n) = \Omega(g(n))$이 될 수 있는 한 커야한다.  
-"Big-Theta": 모든 $n$, $n >= n_0$에 대해 $c_1g(n) <= f(n) <= c_2g(n)$인 조건을 만족시키는 세 양의 상수 $c_1, c_2$와 $n_0$가 존재하기만 하면 $f(n)= \Theta(g(n))$.  
+
 "Big-Theta" 표기법이 가장 정확하다.  
 
 **3\. Model the World Wide Web with the "Graph" data structure.**    
@@ -42,8 +50,7 @@ Weakness: 상한값에 대한 정보만 존재하며, 이 상한이 어느 정�
 
 **5\. Describe the differences between "Binary tree" and "B tree" data structure.**  
 
-A:  
-Definition  
+--정의--  
 "Binary Tree": *공백*이거나 루트와 왼쪽 서브트리, 오른쪽 서브트리라고 하는 두 개의 분리된 이진 트리로 구성된 노드의 유한집합이다.  
 "B Tree": 차수가 $m$인 B-트리(B-tree of order m)는 공백이거나 다음 성질들을 만족시키는 m원(m-way) 탐색 트리이다.  
 -  루트 노드는 적어도 두 개의 자식을 갖는다.   
@@ -80,12 +87,12 @@ Min-Heap은 최소 트리이면서 완전 이진 트리이다.
 A:   
 5.를 참고  
 
-**9\. Provide a formal definitio of "AVL tree" data structure.**    
+**9\. Provide a formal definition of "AVL tree" data structure.**    
 
 A: 
 공백 트리는 높이 균형을 이룬다. 트리 $T$가 왼쪽과 오른쪽 서브트리인 $T_L$ 과 $T_R$ 을 ㄱ가진 공백이 아닌 이진 트리라고 할 때 아래 조건을 만족시키면 트리 $T$ 는 높이 균형을 이루며 그 역도 성립한다.   
 - $T_L$과 $T_R$이 높이 균형을 이룬다.   
-- $|h_L - h_R| \le 1$ ($h_L$과 $h_R$은 각각 $T_L$과 $T_R$의 높이)이다.  
+- $\|h_L - h_R\| \le 1$ ($h_L$과 $h_R$은 각각 $T_L$과 $T_R$의 높이)이다.  
 
 **10\. Provide a formal definition of "M-way tree" data structure.**  
 

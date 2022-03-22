@@ -75,6 +75,7 @@ multiprocessor system에서는 각 프로세서가 각자 캐시를 갖고 있�
 - Coherence: 읽기를 통해 어떤 값이 반환이 되어야 하는가 (e.g. write serialization)  
 - Consistency: 쓰여진 값이 언제 반환될 건지 결정  
 Snooping Protocol (a single private cache block using write invalidation protocol and a write-back cache)
+
 ![A write invalidate, cache coherence protocol for a private write-back cache showing the states and state transitions for each block in the cache](../assets/images/cache-coherence-snooping.png){: width="50%" height="50%"0}{: .center}
 
 finite-state diagram으로 봤을 때, 3가지 state가 존재한다.  
@@ -127,3 +128,25 @@ for (int i = 0; i < 100; i++){
 
 
 위의 코드가 있을 때, i변수에 대해 temporal locality가 존재하며, 배열 array의 데이터에 대해 spatial locality가 존재한다. 
+
+**QA1. Cache and Performance**
+
+$$2^{Index} = \frac{Cache Size}{Blocksize \times Set Associativity}$$  
+
+CPU execution time = (CPU clock cycles + Memory stall cycles) $\times$ Clock cycle time  
+
+Memory stall cycles = Number of misses $\times$ Miss penalty  
+
+Memory stall cycles = IC $\times \frac{Misses}{Insturction}\times$ Miss penalty
+
+$\frac{Misses}{Instruction}$ = Miss rate $\times\frac{Memory Accesses}{Instruction}$  
+
+CPU execution time = IC $\times$ ($CPI_{execution} + \frac{Memory Stall Clock Cycles}{Instruction}$)$\times$ Clock Cycle Time
+
+CPU execution time = IC $\times$ ($CPI_{execution} + \frac{Misses}{Instruction}\times Miss penalty$)$\times$ Clock Cycle Time
+
+CPU execution time = IC $\times$ ($CPI_{execution} + Miss rate \times \frac{Memory Accesses}{Instruction} \times Miss Penalty$)$\times$ Clock Cycle Time
+
+Average memory access time(AMAT) = $Hit time + Miss rate $\times$ Miss penalty$
+
+Average memory access time(AMAT) = $Hit time_{L1} + Miss rate_{L1} \times (Hit time_{L2} + Miss rate_{L2} \times Miss penalty_{L2})$
