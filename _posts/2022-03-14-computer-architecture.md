@@ -112,12 +112,20 @@ modified: private cache에서 update 된 block을 가리킨다.(다른 private c
     - Write Hit(Normal hit): write data in local cache -> Modified
     - Write Miss(Replacement): Address miss: write-back block; then place write miss on bus -> Modified
 
-다음은 bus에 의한 상태 변경이다. Bus를 통해 온 request를 어떻게 처리하냐 
+다음은 bus에 의한 상태 변경이다. Bus를 통해 온 request(위의 place* 구문)를 어떻게 처리하냐 
 
 ![transitionss based on operations on the bus](/assets/images/cache-coherence-bus.png)
 
 **SHARED**
-    - Read Miss(No action): Allow shared cache or memory to service read miss. 
+    - Read Miss(No action): Allow shared cache or memory to service read miss. -> Shared
+    - Invalidate(Coherence): Attempt to write shared block; invalidate the block -> Invalidate
+    - Write Miss(Coherence): Attempt to write shared block; invalidate the block -> Invalidate
+
+**MODIFIED**
+    - Read Miss(Coherence): Attempt to read shared data; place cache block on bus: write-back block -> Shared
+    - Write Miss(Coherence): Attempt to write block that is exclusive elsewhere; write-back the cache block -> Invalidate
+
+bus에 invalidate이나 write miss가 올라오면 다른 코어의 data copy를 들고있는 block은 invalidate된다.{: .notice--warning}
 
 **Q9. Explain DMA(Direct Memory Access).**  
 
@@ -278,11 +286,3 @@ physical memory의 data copy를 갖고 있는 캐시가 직접 block의 sharing 
 --Snooping Coherence Protocol--
 Implemented by incorporating a finite-state controller in each core. 
 controller는 processor나 bus로부터 온 request를 처리하며, cache block의 state을 바꿀 뿐 아니라 bus를 이용해 data에 접근하거나 invalidate할 수 있다. 
-
-**MSI** protocol
-state가 M(Modified), S(Shared), I(Invalid) 세 개로 이루어져있다. 
-
-Shared: 잠재적으로 공유되는 private cache안에 있는 data block
-
-Modified: private cache에서 data block이 update 되었음을 나타낸다(block이 exclusive하게 되었음을 내포한다).
-
