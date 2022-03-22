@@ -165,18 +165,18 @@ for (int i = 0; i < 100; i++){
     cons: hit time이 증가하며 power consumption 또한 증가한다.  
 
 - Multilevel caches to reduce *miss penalty*:    
-    pros: L1\$보다는 느리지만 M.M보다 빠르고, L1\$보다 크지만 M.M보다 작은 용량의 캐시를 만들면 processor access와 M.M access의 gap이 줄어들어, power & cost efficient한 시스템을 구성할 수 있다.  
+    pros: L1\$보다는 느리지만 M.M보다 빠르고, L1 cache보다 크지만 M.M보다 작은 용량의 캐시를 만들면 processor access와 M.M access의 gap이 줄어들어, power & cost efficient한 시스템을 구성할 수 있다.  
 
 - Giving priority to read misses over writes to reduce *miss penalty*:  (RAW hazard: W->R)   
     기존의 write-back cache 였다면, read miss가 발생했을 때, dirty block을 memory에 작성하고나서 읽게된다.  
-    하지만 write buffer를 사용하여 위의 기법을 적용하면, dirty block은 write buffer에 복사하고, 읽기 작업을 수행하고, 그리고나서 쓰기 작업을 수행한다. 
+    하지만 write buffer를 사용하여 위의 기법을 적용하면, dirty block은 write buffer에 복사하고, 읽기 작업을 수행하고, 그리고나서 쓰기 작업을 수행한다.  
 
-    write-through인 경우, write buffer가 빌 때까지 기다려야하기 때문에 read miss penalty가 증가한다. 
-    하지만 write buffer 내용물을 확인하고, conflict가 없으면 memory access를 계속 진행해도 된다. 
+    write-through인 경우, write buffer가 빌 때까지 기다려야하기 때문에 read miss penalty가 증가한다.  
+    하지만 write buffer 내용물을 확인하고, conflict가 없으면 memory access를 계속 진행해도 된다.  
 
 - Avoiding address translation during indexing of the cache to *reduce hit time*   
-    Virtual memory를 사용하는 경우, physical page address로 변환하고, 캐시의 tag와 비교를 해야하기 때문에 두번의 memory access가 두번 발생한다. 하지만 이때 page table은 크기 때문에 M.M에 저장되어 있어서 cache indexing time과의 gap이 상당하다. 따라서 page translation time을 줄이기 위해 TLB를 적용한다.
-    *L1캐시의 크기나 구조에 대해 제약이 걸릴 수 도 있지만, TLB를 적용했을 떄의 이점이 더 크다.* 
+    Virtual memory를 사용하는 경우, physical page address로 변환하고, 캐시의 tag와 비교를 해야하기 때문에 두번의 memory access가 두번 발생한다. 하지만 이때 page table은 크기 때문에 M.M에 저장되어 있어서 cache indexing time과의 gap이 상당하다. 따라서 page translation time을 줄이기 위해 TLB를 적용한다.  
+    *L1캐시의 크기나 구조에 대해 제약이 걸릴 수 도 있지만, TLB를 적용했을 떄의 이점이 더 크다.*  
 
 **Cache and Performance**
 
