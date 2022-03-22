@@ -92,10 +92,11 @@ CPU(host) 개입없이 device controller가 data block을 MM으로 직접 전송
 
 ![paging hardware with TLB](/assets/images/tlb.png)
 
-빠른 Context-Switching을 위해 page table을 사용하며, page table은 매우크기 때문에 main memory에 저장한다.  
-하지만 main memory에 저장되어 있기 때문에 여전히 매우 느린 memory access time을 갖고 있다(page table entry access -> access actual data).  
-따라서 이 문제를 해결하기 위해 fast-lookup hardware cache를 이용해 빠르게 page number를 찾게 되면 frame number를 memory access에 바로 사용할 수 있다.  
+Virtual memory system에서 page access를 위해 virtual memory address를 physical memory address로 mapping해주는 page table을 사용한다.  
+이때, page table은 매우크기 때문에 main memory에 저장하기 때문에 L1 cache indexing에 비해 매우 느린 속도를 갖는다.  
+따라서 빠른 address translation을 지원하기 위한 캐시인 TLB(Table Look-aside Buffer)를 사용하고 있다.   
 
+--TLB를 사용하는 시스템에서 page fault가 발생했을 때--
 page fault handling에서 missing page를 file system에서 가져와 physical memory에 저장하고, page table과 TLB에 반영을 한다.  
 그러고 나서 다시 명령을 수행한다. 이때 TLB에는 missing page가 들어있으므로, TLB에서는 page hit이 된다.   
 
