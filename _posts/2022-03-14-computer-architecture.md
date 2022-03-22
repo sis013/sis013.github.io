@@ -124,6 +124,7 @@ int array[100];
 for (int i = 0; i < 100; i++){
     array[i] += 1;
 }
-'''
+```
+
 
 위의 코드가 있을 때, i변수에 대해 temporal locality가 존재하며, 배열 array의 데이터에 대해 spatial locality가 존재한다. 
