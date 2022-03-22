@@ -53,7 +53,7 @@ single cycle implementation의 작업을 쪼개 한 stage 당 작은 단위의 �
 드라이브를 병렬적으로 동작시켜서 R/W rate를 향상시키고, 여러 드라이브에 데이터를 저장함으로서, 한 드라이브가 망가지더라도 데이터의 손실로 이어지지 않게 하는 disk organization techniques을 RAIDs라 한다.   
 RAIDs는 크고 비싼 디스크 대신, 작고 싼 디스크들을 이용해 구성하여 가격효율이 좋다. 요즘에는 높은 reliability와 higher data-transfer에 초점이 맞춰져 있어서 "inexpansive" 뿐만 아니라 "Independent"라는 의미를 담고 있기도 하다.  
 
-**Q6. Explain the feature of RISC processors**
+**Q6. Explain the feature of RISC processors**  
 
 RISC(Reduced Instruction Set Computer)-based architecture는 간단한 instruction을 통해 두가지 측면에서 큰 특징을 갖는다.  
 Instruction-Level-Parallelism (pipelining 부터 multiple instruction issue)을 달성하기 쉽다.  
@@ -76,7 +76,7 @@ multiprocessor system에서는 각 프로세서가 각자 캐시를 갖고 있�
 - Consistency: 쓰여진 값이 언제 반환될 건지 결정  
 Snooping Protocol (a single private cache block using write invalidation protocol and a write-back cache)
 
-![A write invalidate, cache coherence protocol for a private write-back cache showing the states and state transitions for each block in the cache](../assets/images/cache-coherence-snooping.png){: width="50%" height="50%"0}{: .center}
+![A write invalidate, cache coherence protocol for a private write-back cache showing the states and state transitions for each block in the cache](/assets/images/cache-coherence-snooping.png)
 
 finite-state diagram으로 봤을 때, 3가지 state가 존재한다.  
 invalidate: 해당 block 사용불가  
@@ -90,7 +90,7 @@ CPU(host) 개입없이 device controller가 data block을 MM으로 직접 전송
 
 **Q10. Why do we need TLB (Translation Lookahead Buffer). In case of page fault, explain the operation of the TLB?**  
 
-![paging hardware with TLB](../assets/images/tlb.png){: width="50%" height="50%"0}{: .center}
+![paging hardware with TLB](/assets/images/tlb.png)
 
 빠른 Context-Switching을 위해 page table을 사용하며, page table은 매우크기 때문에 main memory에 저장한다.  
 하지만 main memory에 저장되어 있기 때문에 여전히 매우 느린 memory access time을 갖고 있다(page table entry access -> access actual data).  
@@ -150,3 +150,11 @@ CPU execution time = IC $\times$ ($CPI_{execution} + Miss rate \times \frac{Memo
 Average memory access time(AMAT) = $Hit time + Miss rate $\times$ Miss penalty$
 
 Average memory access time(AMAT) = $Hit time_{L1} + Miss rate_{L1} \times (Hit time_{L2} + Miss rate_{L2} \times Miss penalty_{L2})$
+
+**Memory  Hierarchy going from virtual address to L2 cache access**
+
+page size: 16KiB  
+TLB: 2-way set associative with 256 entries  
+L1$: direct-mapped 16KiB  
+L2$: 4-way set-associative with a total of 4 MiB. Both use 64-byte blocks  
+V.A: 64bits     P.A: 40bits
