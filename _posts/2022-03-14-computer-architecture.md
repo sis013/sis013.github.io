@@ -72,16 +72,36 @@ multiprocessor system에서는 각 프로세서가 각자 캐시를 갖고 있�
 
 하나의 대원칙: 값을 읽을 때, 가장 최근에 쓰여진 값을 반환해야 한다.
 
-- Coherence: 읽기를 통해 어떤 값이 반환이 되어야 하는가 (e.g. write serialization)  
-- Consistency: 쓰여진 값이 언제 반환될 건지 결정  
-Snooping Protocol (a single private cache block using write invalidation protocol and a write-back cache)
-
-![A write invalidate, cache coherence protocol for a private write-back cache showing the states and state transitions for each block in the cache](/assets/images/cache-coherence-snooping.png)
+- **Coherence**: 읽기를 통해 어떤 값이 반환이 되어야 하는가 (e.g. write serialization)   
+Coherence defines the behavior of reads and writes to the same memory location.
+  - preserve program order
+  - coherent view of memory (한 위치에서 가장 최근의 값만 읽을 수 있다.)
+  - write serialization (한 위치에 대해 쓸 때, 항상 같은 순서로 써야한다)
+- **Consistency**: 쓰여진 값이 언제 반환될(보여질) 건지 결정  
+Consistency defines the behavior of reads and writes with respect to accesses to other memory locations.  
+Snooping Protocol (a single private cache block using write invalidation protocol and a write-back cache)  
+write invalidate protocol: exclusive access to a data item before writing that item. 
 
 finite-state diagram으로 봤을 때, 3가지 state가 존재한다.  
 invalidate: 해당 block 사용불가  
 shared: 해당 block은 잠재적으로 공유된다는 것을 가리킨다.    
-modified: private cache에서 update 된 block을 가리킨다.(다른 private cache의 block과 배타적임)  
+modified: private cache에서 update 된 block을 가리킨다.(다른 private cache의 block과 exclusive함을 내포한다) 
+
+![A write invalidate, cache coherence protocol for a private write-back cache showing the states and state transitions for each block in the cache](/assets/images/cache-coherence-snooping.png)
+
+위의 그림은 한 CPU(own)로부터 발생한 request에 대한 다이어그램이다.   
+*오직 하나의 CPU만이 bus를 점유할 수 있다(global이라서).
+
+
+**INVALID**
+    - Read Miss(Normal Miss): Place read miss on bus. -> Shared
+    - Write Miss(Normal Miss): Place write miss on bus. -> Modified
+
+**SHARED**
+    - Read Hit(Normal Hit): Read data in local cache. -> Shared
+    - Read Miss(Replacement): Address miss; place read miss on bus -> Shared
+    - Write Hit(Coherence): Place invalidate on bus. 
+
 
 
 **Q9. Explain DMA(Direct Memory Access).**  
@@ -105,7 +125,7 @@ page fault handling에서 missing page를 file system에서 가져와 physical m
 clock per instruction (CPI)로, 한 명령어를 처리하는데 몇 clock이 소요되는지 나타내는 단위이다.  
 프로그램 A를 machine X 와 Y에서 동작할 때, X는 3GHz로 동작하며 CPI가 1.5, Y는 1GHz로 동작하며 CPI가 1이다.   
 Instruction Count가 같을 때, machine X는 초당 $2*10^9$개의 명령어를 처리하는 반면, machine Y는 $10^9$개의 명령어만을 처리한다.   
-즉, X는 CPI가 높지만 Y보다 성능이 좋다. 
+즉, X는 CPI가 높지만 Y보다 성능이 좋다.  
 *Performance(execution time)을 결정짓는 것은 CPI로만 이루어지지 않는다.*
 
 **Q12. Explain Amdahl’s law. Why is the law related to “make common cases faster”?**
@@ -214,4 +234,40 @@ TLB: 2-way set associative with 256 entries
 L1 cache: direct-mapped 16KiB   
 L2 cache: 4-way set-associative with a total of 4 MiB. Both use 64-byte blocks   
 V.A: 64bits     P.A: 40bits  
+
+**Coherence**
+
+muliple data copies가 거의 없는 I/O와 달리, multiprocessors에서는 여러개의 캐시에서 복사된 데이터를 갖고있는 것이 보통이다.  
+multiprocessor에서 캐시는 *migration*과 *replication*을 제공한다.  
+
+migration: coherent cache는 데이터를 local cache로 옮기고 거기서 사용할 수 있게 한다. 
+        -> 원격 shared item에 대한 access latency 감소 + shared memory bandwidth 요구 감소
+
+replication: coherent cache가 local cache로 복사하기 때문에 동시에 shared memory를 읽을 수 있다. 
+        -> Replication을 통해 shared item을 읽는 것에 대한 access latency와 contention 모두 줄일 수 있다. 
+
+**replication과 migration은 shared memory accessing performance에서 매우 중요하다.(s/w 없이)**
+
+--cache coherence protocols--
+**KEY**: Tracking the state of any sharing of a data block.  
+valid 나 dirty bit 처럼 cache block에 status bit을 추가해 state을 추적한다. 프로토콜에는 두가지 방법이 있다. 
+
+Directory based:  
+'directory'라고 부르는 위치에 sharing status block을 저장  
+*In an SMP*, LLC에 하나의 centralized directory를 사용할 수 있다.  
+*In a DSM*, 분산시스템에서 하나의 directory를 사용할 방법이 없다.  
+
+Snooping based:  
+physical memory의 data copy를 갖고 있는 캐시가 직접 block의 sharing status를 tracking. 
+
+--Snooping Coherence Protocol--
+Implemented by incorporating a finite-state controller in each core. 
+controller는 processor나 bus로부터 온 request를 처리하며, cache block의 state을 바꿀 뿐 아니라 bus를 이용해 data에 접근하거나 invalidate할 수 있다. 
+
+**MSI** protocol
+state가 M(Modified), S(Shared), I(Invalid) 세 개로 이루어져있다. 
+
+Shared: 잠재적으로 공유되는 private cache안에 있는 data block
+
+Modified: private cache에서 data block이 update 되었음을 나타낸다(block이 exclusive하게 되었음을 내포한다).
 
