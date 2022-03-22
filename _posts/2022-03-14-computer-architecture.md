@@ -111,8 +111,7 @@ $Speed Up = 1-F + \frac{F}{S}$
 
 **Q13. Explain the relation between processor frequency and clock cycle time. Additionally, in case of 2GHz CPU, what is the clock cycle time in terms of ps(pico second)?**
 
-$ps = 10^{-12}$ second, 2GHz -> $2*10^9$ cycles per a second, which is sames as 1 cycles per $\frac{1}{2*10^9}$
-clock cycle time = $0.5*10^{-9}$ second = $0.5 * 10^{-9} * 10^{12}$ pico second = $500$ pico second
+$ps = 10^{-12}$ second, 2GHz -> $2 \times 10^9$ cycles per a second, which is sames as 1 cycles per $\frac{1}{2*10^9}$ clock cycle time = $0.5 \times 10^{-9}$ second = $0.5 \times 10^{-9} \times 10^{12}$ pico second = $500$ pico second
 
 **Q14. Explain spatial locality AND temporal locality. How do they different? Explain with examples.**
 
