@@ -131,7 +131,7 @@ for (int i = 0; i < 100; i++){
 
 **QA1. Cache and Performance**
 
-$$2^{Index} = \frac{Cache Size}{Blocksize \times Set Associativity}$$  
+$2^{Index} = \frac{Cache Size}{Blocksize \times Set Associativity}$
 
 CPU execution time = (CPU clock cycles + Memory stall cycles) $\times$ Clock cycle time  
 
