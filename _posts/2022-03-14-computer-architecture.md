@@ -114,7 +114,7 @@ modified: private cache에서 update 된 block을 가리킨다.(다른 private c
 
 다음은 bus에 의한 상태 변경이다. Bus를 통해 온 request(위의 place* 구문)를 어떻게 처리하냐 
 
-![transitionss based on operations on the bus](/assets/images/cache-coherence-bus.png)
+![Transitionss based on operations on the bus](/assets/images/cache-coherence-bus.png)
 
 **SHARED**
     - Read Miss(No action): Allow shared cache or memory to service read miss. -> Shared
