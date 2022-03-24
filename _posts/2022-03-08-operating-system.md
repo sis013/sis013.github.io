@@ -64,7 +64,7 @@ trap은 trap instruction을 수행하고 발생하는 synchronous한 process이�
 
 **4\. 임계구역 문제(Critical-section problem)의 해결책은 세 가지 요구사항인 Mutual exclusion, Progress, 그리고 Bounded waiting을 만족시켜야 하는데, 이러한 세 가지 요구사항에 대해 설명하시오. (process synchronization)**  
 A:  
-Multual exclusion: 하나 이상의 자원이 공유 불가능한 상태로 유지되어야 한다.   
+Mutual exclusion: 하나 이상의 자원이 공유 불가능한 상태로 유지되어야 한다.   
 -> 한 프로세스가 critical section에서 실행되고 있을 때, 다른 프로세스들은 critical section에서 실행되지 못한다.  
 Progress: 실행되는 동안 deadlock이 발생하지 않도록 보장해야 한다.  
 -> critical section에서 동작하는 프로세스가 없고 critical section에 진입하려는 프로세스들이 존재할 때, remainder section에 있지 않은 프로세스들 중에서
@@ -132,7 +132,7 @@ $\tau_{n+1} = \alpha\tau_{n} + (1-\alpha)\alpha\tau_{n-1} + \cdots + (1-\alpha)^
 (조건) When $P_2$ has higher priority than $P_1$  
 
 Rate-Monotonic Scheduling: 선점방식으로, 주기적인 작업을 static priority policy를 이용해 scheduling한다.   
-조건: 긴 주기(period)를 가질수록 높은 우선순위를 갖는다. -> 높은 우선순위를 가진 긴 주기를 작업이 CPU를 주로 점유한다.   
+    주기가 짧을수록 높은 우선순위를 갖는다.   
 0~35: $P_2$  
 35~55: $P_1$ -> $P_1$의 deadline이 50으로, deadline을 놓친다.  
 
@@ -253,21 +253,21 @@ system with multiple instances of each resource type.
 
 (1) Need matrix 정의: Max - Allocation  
 **시스템이 safe state인지 확인하는 algorithm (safety algorithm)**  
-1\. 모든 i에 대해 Finish[i] = false  
-2\. Finish[i] == false && $Need_i \le Available$를 만족하는 i를 찾는다. 없으면 4\. 로 간다.  
-3\. Available = Available + $Allocation_i$  
-    Finish[i] = true  
-4\. If Finish[i] == true for all i, then the system is in a safe state  
+1\. 모든 i에 대해 Finish[i] = false   
+2\. Finish[i] == false && $Need_i \le Available$를 만족하는 i를 찾는다. 없으면 4\. 로 간다.   
+3\. Available = Available + $Allocation_i$   
+    Finish[i] = true   
+4\. If Finish[i] == true for all i, then the system is in a safe state   
 
-(2)Request가 safety를 얻을 수 있는지 판단하는 알고리즘 (Resource-Request Algorithm)  
-$Request_i$를 $P_i$의 request vector라고 할 때, 다음과 같다.  
-1\. If $Request_i \le Need_i$, go to step 2. Otherwise, raise an error condition(exceeded its maximum).  
-2\. If $Request_i \le Available_i$, go to step 3. Otherwise, $P_i$ must wait, since the resources are not available.  
-3\. $P_i$에 자원을 할당할 때, 다음과 같이 변경한다.  
-$$Available = Available - Request_i$$
-$$Allocation_i = Allocation_i + Request_i$$
-$$Need_i = Need_i - Request_i$$
-이때, 시스템이 unsafe한 상태라면, 이전 상태로 복구하고, 기다린다(restore old state and wait).  
+(2)Request가 safety를 얻을 수 있는지 판단하는 알고리즘 (Resource-Request Algorithm)   
+$Request_i$를 $P_i$의 request vector라고 할 때, 다음과 같다.   
+1\. If $Request_i \le Need_i$, go to step 2. Otherwise, raise an error condition(exceeded its maximum).    
+2\. If $Request_i \le Available_i$, go to step 3. Otherwise, $P_i$ must wait, since the resources are not available.    
+3\. $P_i$에 자원을 할당할 때, 다음과 같이 변경한다.   
+$$Available = Available - Request_i$$  
+$$Allocation_i = Allocation_i + Request_i$$  
+$$Need_i = Need_i - Request_i$$  
+이때, 시스템이 unsafe한 상태라면, 이전 상태로 복구하고, 기다린다(restore old state and wait).   
 
 **20\. 유닉스 I-node가 10개의 직접 접근 블록과 각 1개씩의 1차(single), 2차(double) 간접 접근 블록(indirect block)까지 활용한다고 할 때, 한 파일이 표현할 수 있는 최대 용량을 계산하시오. 단, 하나의 디스크 블록은 1KB 이며, 하나의 디스크 블록 주소는 4Bytes이다. (계산기 불필요 최종 결과는 수식으로 표현 가능)**  
 

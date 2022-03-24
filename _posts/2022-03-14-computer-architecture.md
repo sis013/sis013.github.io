@@ -37,7 +37,7 @@ single cycle implementation의 작업을 쪼개 한 stage 당 작은 단위의 �
 
 **Data hazard**: data에는 dependency (Read After Write, Write After Read, Write After Write)가 존재하므로, dependency가 없어질 때까지 stall 된다.  
 -> WAW, WAR hazard 같은 경우에는 OoO(Out-of-Order) 프로세서에서 발생하는 data hazard로, tomasulo's algorithm을 사용해 register renaming을 통해 해결할 수 있다.  
--> RAW hazard 같은 경우에는 resolving이(완전히 없애는게) 불가능한 hazard이다. 이를 해결하기 위해서는 data forwarding을 통해 stall cycle을 줄일 수 있다. 
+-> RAW hazard 같은 경우에는 resolving이(완전히 없애는게) 불가능한 hazard이다. 이를 해결하기 위해서는 data forwarding을 통해 stall cycle을 줄일 수 있다.  + program reordering  
 
 **Q4. For I/O operations, there are two methods: polling and interrupt. Explain two methods and present pros and cons of each method.**
 
